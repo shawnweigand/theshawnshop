@@ -4,9 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return Inertia::render('welcome');
 })->name('home');
+
+Route::get('/', function () {
+    return Inertia::render('landing-demo');
+})->name('landing-demo');
 
 Route::middleware([
     'auth',
