@@ -12,6 +12,10 @@ Route::get('/', function () {
     return Inertia::render('landing-demo');
 })->name('landing-demo');
 
+Route::get('/giveaway', function () {
+    return Inertia::render('giveaway');
+})->name('giveaway');
+
 Route::middleware([
     'auth',
     ValidateSessionWithWorkOS::class,
