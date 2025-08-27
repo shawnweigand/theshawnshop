@@ -82,7 +82,7 @@ export function DesignAgency() {
         transition={{ duration: 0.5 }}
         className={`sticky top-0 z-50 w-full border-b bg-background ${scrollY > 50 ? "shadow-md" : ""}`}
       >
-        <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between border-x border-muted px-2 md:px-4">
+        <div className="container mx-auto max-w-[1400px] flex h-16 items-center justify-between border-x border-muted px-2 md:px-4">
           <div className="flex items-center gap-3">
             <a href="/" className="flex items-center space-x-3">
               <motion.div
@@ -135,7 +135,7 @@ export function DesignAgency() {
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 bg-background md:hidden"
         >
-          <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-2 md:px-4">
+          <div className="container mx-auto max-w-[1400px] flex h-16 items-center justify-between px-2 md:px-4">
             <div className="flex items-center gap-3">
               <a href="/" className="flex items-center space-x-3">
                 <div className="h-10 w-10 rounded-3xl bg-primary flex items-center justify-center">
@@ -153,7 +153,7 @@ export function DesignAgency() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="container mx-auto max-w-7xl grid gap-3 pb-8 pt-6 px-2 md:px-4"
+            className="container mx-auto max-w-[1400px] grid gap-3 pb-8 pt-6 px-2 md:px-4"
           >
             {["Services", "Work", "About", "Clients", "Contact"].map((item, index) => (
               <motion.div key={index} variants={itemFadeIn}>
@@ -180,7 +180,7 @@ export function DesignAgency() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 overflow-hidden">
-          <div className="container mx-auto max-w-7xl px-2 md:px-4 border border-muted rounded-3xl bg-background">
+          <div className="container mx-auto max-w-[1400px] px-2 md:px-4 border border-muted rounded-3xl bg-background">
             <div className="grid gap-3 lg:grid-cols-[1fr_400px] lg:gap-3 xl:grid-cols-[1fr_600px]">
               <motion.div
                 initial="hidden"
@@ -265,7 +265,7 @@ export function DesignAgency() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="container mx-auto max-w-7xl px-2 md:px-4 border border-muted rounded-3xl bg-background"
+            className="container mx-auto max-w-[1400px] px-2 md:px-4 border border-muted rounded-3xl bg-background"
           >
             <div className="flex flex-col items-center justify-center space-y-4 text-center py-10">
               <div className="space-y-3">
@@ -329,7 +329,7 @@ export function DesignAgency() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="container mx-auto max-w-7xl px-2 md:px-4 border border-muted rounded-3xl"
+            className="container mx-auto max-w-[1400px] px-2 md:px-4 border border-muted rounded-3xl"
           >
             <div className="flex flex-col items-center justify-center space-y-4 text-center py-10">
               <div className="space-y-3">
@@ -435,7 +435,7 @@ export function DesignAgency() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="container mx-auto max-w-7xl grid items-center gap-3 px-2 md:px-4 lg:grid-cols-2 border border-muted rounded-3xl"
+            className="container mx-auto max-w-[1400px] grid items-center gap-3 px-2 md:px-4 lg:grid-cols-2 border border-muted rounded-3xl"
           >
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -564,7 +564,7 @@ export function DesignAgency() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
-          className="container mx-auto max-w-7xl grid gap-3 px-2 py-10 md:px-4 lg:grid-cols-4 border-x border-muted"
+          className="container mx-auto max-w-[1400px] grid gap-3 px-2 py-10 md:px-4 lg:grid-cols-4 border-x border-muted"
         >
           <div className="space-y-3">
             <a href="/" className="flex items-center space-x-3">
@@ -679,7 +679,7 @@ export function DesignAgency() {
           </div>
         </motion.div>
         <div className="border-t">
-          <div className="container mx-auto max-w-7xl flex flex-col items-center justify-between gap-3 py-6 md:h-16 md:flex-row md:py-0 px-2 md:px-4">
+          <div className="container mx-auto max-w-[1400px] flex flex-col items-center justify-between gap-3 py-6 md:h-16 md:flex-row md:py-0 px-2 md:px-4">
             <p className="text-xs text-muted-foreground">
               &copy; {new Date().getFullYear()} Design Studio. All rights reserved.
             </p>
