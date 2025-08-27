@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 
 export default function EmailCard() {
   return (
-    <div className="w-full bg-background flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="w-full bg-background flex items-center justify-center pb-4 px-4 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl"></div>
         <div className="absolute bottom-1/3 right-1/3 w-24 h-24 rounded-full bg-foreground/20 blur-2xl"></div>
