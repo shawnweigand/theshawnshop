@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StripeProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
@@ -27,6 +28,8 @@ Route::middleware([
     Route::get('products', function () {
         return Inertia::render('products');
     })->name('products');
+
+    Route::resource('stripe-products', StripeProductController::class)->names('products');
 });
 
 require __DIR__.'/settings.php';
