@@ -26,6 +26,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { usePage, Link } from "@inertiajs/react"
+import { SharedData } from "@/types"
 
 // Animation variants
 const fadeIn = {
@@ -57,6 +59,8 @@ const itemFadeIn = {
 }
 
 export function DesignAgency() {
+  const { auth } = usePage<SharedData>().props;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
 
@@ -113,12 +117,19 @@ export function DesignAgency() {
             </a>
           </nav>
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="outline" size="sm" className="rounded-3xl">
-              Log In
-            </Button>
-            <Button size="sm" className="rounded-3xl">
-              Get Started
-            </Button>
+            {auth.user ? (
+              <Link href={route('dashboard')}>
+                <Button size="sm" className="rounded-3xl">
+                  Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <Link href={route('login')}>
+                <Button size="sm" className="rounded-3xl">
+                  Log In
+                </Button>
+              </Link>
+            )}
           </div>
           <button className="flex md:hidden" onClick={toggleMenu}>
             <Menu className="h-6 w-6" />
@@ -168,10 +179,15 @@ export function DesignAgency() {
               </motion.div>
             ))}
             <motion.div variants={itemFadeIn} className="flex flex-col gap-3 pt-4">
-              <Button variant="outline" className="w-full rounded-3xl">
-                Log In
-              </Button>
-              <Button className="w-full rounded-3xl">Get Started</Button>
+              {auth.user ? (
+                <Link href={route('dashboard')}>
+                  <Button className="w-full rounded-3xl">Dashboard</Button>
+                </Link>
+              ) : (
+                <Link href={route('login')}>
+                  <Button className="w-full rounded-3xl">Log In</Button>
+                </Link>
+              )}
             </motion.div>
           </motion.nav>
         </motion.div>

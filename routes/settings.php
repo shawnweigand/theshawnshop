@@ -15,7 +15,7 @@ Route::middleware([
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('settings/appearance', function () {
-        return Inertia::render('settings/appearance');
-    })->name('appearance');
+    // Route::get('settings/appearance', function () {
+    //     return Inertia::render('settings/appearance');
+    // })->name('appearance');
 });

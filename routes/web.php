@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 
-Route::get('/welcome', function () {
-    return Inertia::render('welcome');
-})->name('home');
+// Route::get('/welcome', function () {
+//     return Inertia::render('welcome');
+// })->name('home');
 
 Route::get('/', function () {
     return Inertia::render('landing-demo');
@@ -23,6 +23,10 @@ Route::middleware([
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    Route::get('products', function () {
+        return Inertia::render('products');
+    })->name('products');
 });
 
 require __DIR__.'/settings.php';
