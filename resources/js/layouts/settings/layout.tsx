@@ -12,11 +12,11 @@ const sidebarNavItems: NavItem[] = [
         href: '/settings/profile',
         icon: null,
     },
-    {
-        title: 'Appearance',
-        href: '/settings/appearance',
-        icon: null,
-    },
+    // {
+    //     title: 'Appearance',
+    //     href: '/settings/appearance',
+    //     icon: null,
+    // },
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
