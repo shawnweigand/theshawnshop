@@ -34,6 +34,11 @@ setup:
 	make migrate
 	make schedule
 
-# Sync HashiCorp Vault secrets with cluster
-secrets:
-	pwsh secrets-sync.ps1
+ts:
+	php artisan typescript:transform
+
+wh:
+	php artisan cashier:webhook
+
+stripe:
+	stripe listen --forward-to http://localhost/stripe/webhook
