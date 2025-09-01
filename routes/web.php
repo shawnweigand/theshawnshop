@@ -13,13 +13,13 @@ Route::get('/', function () {
     return Inertia::render('landing-demo');
 })->name('landing-demo');
 
-Route::get('/giveaway', function () {
-    return Inertia::render('giveaway/opt-in');
-})->name('giveaway.opt-in');
+Route::get('/giveaway/k8s', function () {
+    return Inertia::render('giveaway/k8s/opt-in');
+})->name('giveaway.k8s.opt-in');
 
-Route::get('/giveaway/thanks', function () {
-    return Inertia::render('giveaway/thanks');
-})->name('giveaway.thanks');
+Route::get('/giveaway/k8s/thanks', function () {
+    return Inertia::render('giveaway/k8s/thanks');
+})->name('giveaway.k8s.thanks');
 
 Route::get('/social-demo', function () {
     return Inertia::render('social-demo');
