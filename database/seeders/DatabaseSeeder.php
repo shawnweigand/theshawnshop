@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             StripeProductSeeder::class,
+            LeadSeeder::class,
         ]);
     }
 }
