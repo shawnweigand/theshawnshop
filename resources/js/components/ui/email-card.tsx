@@ -3,7 +3,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 
-export default function EmailCard() {
+interface EmailCardProps {
+  title?: string;
+  description?: string;
+}
+
+export default function EmailCard({
+  title = "Email Subscription Card",
+  description = "A minimal, polished interface"
+}: EmailCardProps) {
   return (
     <div className="w-full bg-background flex items-center justify-center pb-4 px-4 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.02]">
@@ -13,8 +21,8 @@ export default function EmailCard() {
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         <div className="text-center space-y-2">
-          <h1 className="text-2xl font-semibold text-foreground">Email Subscription Card</h1>
-          <p className="text-muted-foreground">A minimal, polished interface</p>
+          <h1 className="text-2xl font-semibold text-foreground">{title}</h1>
+          <p className="text-muted-foreground">{description}</p>
         </div>
 
         <div className="gradient-border">
@@ -42,19 +50,12 @@ export default function EmailCard() {
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <Badge variant="secondary" className="text-xs bg-foreground/10 text-foreground border-foreground/20">
-                Active
-              </Badge>
+            <div className="flex items-center justify-center">
               <Button size="sm" className="px-6 bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm">
-                Subscribe
+                Start Now
               </Button>
             </div>
           </Card>
-        </div>
-
-        <div className="text-center">
-          <p className="text-xs text-muted-foreground">Simple, clean, and functional design</p>
         </div>
       </div>
     </div>

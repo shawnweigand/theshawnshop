@@ -42,12 +42,12 @@ export const Feature1 = ({
             </p>
             <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
               <Button asChild>
-                <a href={buttonPrimary.href} target="_blank">
+                <a href={buttonPrimary.href}>
                   {buttonPrimary.label}
                 </a>
               </Button>
               <Button variant="outline" asChild>
-                <a href={buttonSecondary.href} target="_blank">
+                <a href={buttonSecondary.href}>
                   {buttonSecondary.label}
                 </a>
               </Button>
@@ -56,7 +56,7 @@ export const Feature1 = ({
           <img
             src={imageSrc}
             alt={imageAlt}
-            className="max-h-96 w-full rounded-md object-cover"
+            className="w-full rounded-md object-contain"
           />
         </div>
       </div>
