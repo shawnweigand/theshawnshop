@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { usePage, Link } from "@inertiajs/react"
+import { route } from "ziggy-js"
 import { SharedData } from "@/types"
 
 // Animation variants
@@ -669,15 +670,15 @@ export function DesignAgency() {
             <div>
               <h3 className="text-lg font-medium">Legal</h3>
               <nav className="mt-4 flex flex-col space-y-2 text-sm">
-                <a href="#" className="text-muted-foreground hover:text-foreground">
+                <Link href={route('privacy')} className="text-muted-foreground hover:text-foreground">
                   Privacy Policy
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-foreground">
+                </Link>
+                <Link href={route('terms')} className="text-muted-foreground hover:text-foreground">
                   Terms of Service
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-foreground">
+                </Link>
+                <Link href={route('cookies')} className="text-muted-foreground hover:text-foreground">
                   Cookie Policy
-                </a>
+                </Link>
               </nav>
             </div>
           </div>

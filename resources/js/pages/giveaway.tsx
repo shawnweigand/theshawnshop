@@ -5,6 +5,8 @@ import { Feature1 } from "@/components/ui/feature-1"
 import { CTA } from "@/components/ui/call-to-action"
 import { MoveRight, PhoneCall } from "lucide-react"
 import { useEffect } from "react"
+import { Link } from "@inertiajs/react"
+import { route } from "ziggy-js"
 
 export default function Giveaway() {
   useEffect(() => {
@@ -40,13 +42,13 @@ export default function Giveaway() {
       {/* Hero Feature Section */}
       <section id="hero">
         <Feature1
-          title="Learn Kubernetes in 8 Simple Steps!"
+          title="Stop Struggling. Start Deploying. Learn Kubernetes in 8 Simple Steps!"
           description="Take the first step towards mastering a 6-figure skillset with this free, hands-on video guide."
           imageSrc="/images/8stepstok8s/laptop.png"
           imageAlt="Laptop with Kubernetes setup"
           buttonPrimary={{
             label: "Start Now",
-            href: "#guide"
+            href: "#signup"
           }}
           buttonSecondary={{
             label: "Learn More",
@@ -55,12 +57,20 @@ export default function Giveaway() {
         />
       </section>
 
+      {/* Email Card Component */}
+      <section id="signup" className="pb-20">
+        <EmailCard
+          title="Get Your Free Guide Now"
+          description="Enter your details below and get your free guide delivered to your inbox."
+        />
+      </section>
+
       {/* CTA Section */}
-      <section id="guide">
+      <section id="guide" className="-mb-16">
         <Cta4
           title="In this free guide, you'll learn..."
           description="Learn by doing and deploy your first application on Kubernetes in just 13 minutes."
-          buttonText="Start Now"
+          buttonText="Get Your Guide"
           buttonUrl="#signup"
           items={[
             "To run your first cluster",
@@ -73,16 +83,8 @@ export default function Giveaway() {
         />
       </section>
 
-      {/* Email Card Component */}
-      <section id="signup">
-        <EmailCard
-          title="Get Your Free Guide Now"
-          description="Enter your details below and get your free guide delivered to your inbox."
-        />
-      </section>
-
       {/* Feature Section */}
-      <section id="about">
+      <section id="about" className="-mt-20 -mb-10">
         <Feature
           badgeText="Bio"
           title="Welcome to The Shawn Shop"
@@ -113,7 +115,7 @@ export default function Giveaway() {
           title="Ready to Level Up Your Tech Skills?"
           description="Join thousands of developers who have already mastered Kubernetes and have built a lucrative career in the tech industry. Start building your cloud-native skills and advance your career now."
           primaryButton={{
-            text: "Get Started Now",
+            text: "Get Your Free Guide",
             href: "#signup",
             icon: <MoveRight className="w-4 h-4" />
           }}
@@ -124,6 +126,28 @@ export default function Giveaway() {
           }}
         />
       </section>
+
+      {/* Footer */}
+      <footer className="border-t bg-background">
+        <div className="container mx-auto max-w-4xl px-4 py-8">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <Link href={route('privacy')} className="text-muted-foreground hover:text-foreground transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href={route('terms')} className="text-muted-foreground hover:text-foreground transition-colors">
+                Terms of Service
+              </Link>
+              <Link href={route('cookies')} className="text-muted-foreground hover:text-foreground transition-colors">
+                Cookie Policy
+              </Link>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              &copy; {new Date().getFullYear()} The Shawn Shop. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

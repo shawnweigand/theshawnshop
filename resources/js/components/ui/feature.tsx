@@ -35,7 +35,7 @@ function Feature({
   imageAlt = "Feature showcase"
 }: FeatureProps) {
   return (
-    <div className="w-full py-20 lg:py-40">
+    <div className="w-full pt-8 lg:pt-16 pb-20 lg:pb-40">
       <div className="container mx-auto max-w-[1400px] px-2 md:px-4">
         <div className="grid border rounded-lg container p-8 grid-cols-1 gap-8 items-center lg:grid-cols-2">
           <div className="flex gap-10 flex-col">
