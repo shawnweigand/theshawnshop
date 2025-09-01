@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { useState } from "react"
+import { router } from "@inertiajs/react"
 
 interface EmailCardProps {
   title?: string;
@@ -12,6 +14,32 @@ export default function EmailCard({
   title = "Email Subscription Card",
   description = "A minimal, polished interface"
 }: EmailCardProps) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    setTimeout(() => {
+      // Here you would typically send the data to your backend
+      console.log('Form submitted:', formData);
+
+      // Redirect to thank you page
+      router.visit('/giveaway/thank-you');
+    }, 1000);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
   return (
     <div className="w-full bg-background flex items-center justify-center pb-4 px-4 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.02]">
@@ -25,7 +53,7 @@ export default function EmailCard({
           <p className="text-muted-foreground">{description}</p>
         </div>
 
-        <div className="gradient-border">
+        <form onSubmit={handleSubmit} className="gradient-border">
           <Card className="p-6 space-y-4 shadow-lg shadow-primary/5 border-0">
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium text-foreground">
@@ -33,8 +61,12 @@ export default function EmailCard({
               </label>
               <Input
                 id="name"
+                name="name"
                 type="text"
                 placeholder="Enter your first name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
                 className="w-full input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
               />
             </div>
@@ -44,19 +76,28 @@ export default function EmailCard({
               </label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
                 className="w-full input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
               />
             </div>
 
             <div className="flex items-center justify-center">
-              <Button size="sm" className="px-6 bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm">
-                Start Now
+              <Button
+                type="submit"
+                size="sm"
+                disabled={isSubmitting}
+                className="px-6 bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm"
+              >
+                {isSubmitting ? 'Submitting...' : 'Start Now'}
               </Button>
             </div>
           </Card>
-        </div>
+        </form>
       </div>
     </div>
   )

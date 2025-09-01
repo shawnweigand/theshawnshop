@@ -5,11 +5,11 @@ interface Feature1Props {
   description?: string;
   imageSrc: string;
   imageAlt: string;
-  buttonPrimary: {
+  buttonPrimary?: {
     label: string;
     href: string;
   };
-  buttonSecondary: {
+  buttonSecondary?: {
     label: string;
     href: string;
   };
@@ -20,38 +20,39 @@ export const Feature1 = ({
   description = "Hundreds of finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
   imageSrc = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
   imageAlt = "Modern workspace",
-  buttonPrimary = {
-    label: "Get Started",
-    href: "https://shadcnblocks.com",
-  },
-  buttonSecondary = {
-    label: "Learn More",
-    href: "https://shadcnblocks.com",
-  },
+  buttonPrimary,
+  buttonSecondary,
 }: Feature1Props) => {
   return (
     <section className="pt-32 pb-32">
       <div className="container mx-auto max-w-[1400px] px-2 md:px-4">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <h1 className="my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl">
-              {title}
-            </h1>
+            <h1
+              className="my-6 mt-0 text-4xl font-semibold text-balance leading-normal lg:text-5xl lg:leading-normal"
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
             <p className="mb-8 max-w-xl text-muted-foreground lg:text-lg">
               {description}
             </p>
-            <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-              <Button asChild>
-                <a href={buttonPrimary.href}>
-                  {buttonPrimary.label}
-                </a>
-              </Button>
-              <Button variant="outline" asChild>
-                <a href={buttonSecondary.href}>
-                  {buttonSecondary.label}
-                </a>
-              </Button>
-            </div>
+            {(buttonPrimary || buttonSecondary) && (
+              <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
+                {buttonPrimary && (
+                  <Button asChild>
+                    <a href={buttonPrimary.href}>
+                      {buttonPrimary.label}
+                    </a>
+                  </Button>
+                )}
+                {buttonSecondary && (
+                  <Button variant="outline" asChild>
+                    <a href={buttonSecondary.href}>
+                      {buttonSecondary.label}
+                    </a>
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
           <img
             src={imageSrc}

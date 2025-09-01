@@ -14,8 +14,16 @@ Route::get('/', function () {
 })->name('landing-demo');
 
 Route::get('/giveaway', function () {
-    return Inertia::render('giveaway');
-})->name('giveaway');
+    return Inertia::render('giveaway/opt-in');
+})->name('giveaway.opt-in');
+
+Route::get('/giveaway/thanks', function () {
+    return Inertia::render('giveaway/thanks');
+})->name('giveaway.thanks');
+
+Route::get('/social-demo', function () {
+    return Inertia::render('social-demo');
+})->name('social-demo');
 
 Route::get('/privacy', function () {
     return Inertia::render('privacy');

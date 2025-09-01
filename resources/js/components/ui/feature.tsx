@@ -47,9 +47,10 @@ function Feature({
                 <h2 className="text-3xl lg:text-5xl tracking-tighter max-w-xl text-left font-regular">
                   {title}
                 </h2>
-                <p className="text-lg leading-relaxed tracking-tight text-muted-foreground max-w-xl text-left">
-                  {description}
-                </p>
+                <p
+                  className="text-lg leading-relaxed tracking-tight text-muted-foreground max-w-xl text-left"
+                  dangerouslySetInnerHTML={{ __html: description || '' }}
+                />
               </div>
             </div>
             <div className="grid lg:pl-6 grid-cols-1 sm:grid-cols-3 items-start lg:grid-cols-1 gap-6">

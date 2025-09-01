@@ -42,7 +42,7 @@ export default function Giveaway() {
       {/* Hero Feature Section */}
       <section id="hero">
         <Feature1
-          title="Stop Struggling. Start Deploying. Learn Kubernetes in 8 Simple Steps!"
+          title="Stop Struggling.<br />Start Deploying."
           description="Take the first step towards mastering a 6-figure skillset with this free, hands-on video guide."
           imageSrc="/images/8stepstok8s/laptop.png"
           imageAlt="Laptop with Kubernetes setup"
