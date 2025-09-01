@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\EmailSubmissionController;
 use App\Http\Controllers\StripeProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,6 +18,8 @@ Route::get('/', function () {
 Route::get('/giveaway/k8s', function () {
     return Inertia::render('giveaway/k8s/opt-in');
 })->name('giveaway.k8s.opt-in');
+
+Route::post('/email/submit', EmailSubmissionController::class)->name('email.submit');
 
 Route::get('/giveaway/k8s/thanks', function () {
     return Inertia::render('giveaway/k8s/thanks');
@@ -50,6 +54,12 @@ Route::middleware([
     })->name('products');
 
     Route::resource('stripe-products', StripeProductController::class)->names('products');
+
+    // Email routes
+    Route::resource('emails', EmailController::class);
+    Route::post('emails/{email}/attach-leads', [EmailController::class, 'attachLeads'])->name('emails.attach-leads');
+    Route::post('emails/{email}/detach-leads', [EmailController::class, 'detachLeads'])->name('emails.detach-leads');
+    Route::post('emails/{email}/sync-leads', [EmailController::class, 'syncLeads'])->name('emails.sync-leads');
 });
 
 require __DIR__.'/settings.php';

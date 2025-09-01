@@ -62,6 +62,8 @@ export default function Giveaway() {
         <EmailCard
           title="Get Your Free Guide Now"
           description="Enter your details below and get your free guide delivered to your inbox."
+          leadRoute="giveaway.k8s"
+          redirectUrl={route('giveaway.k8s.thanks')}
         />
       </section>
 

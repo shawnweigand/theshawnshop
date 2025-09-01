@@ -6,24 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Lead extends Model
+class Email extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'route',
+        'first_name',
+        'email',
     ];
 
     /**
-     * The emails that belong to this lead.
+     * The leads that belong to this email.
      */
-    public function emails(): BelongsToMany
+    public function leads(): BelongsToMany
     {
-        return $this->belongsToMany(Email::class);
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
+        return $this->belongsToMany(Lead::class);
     }
 }

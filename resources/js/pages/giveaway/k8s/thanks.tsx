@@ -5,49 +5,68 @@ import { CheckCircle, Download, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Feature1, Feature } from '@/components/ui';
 import { SocialTooltip, SocialItem } from '@/components/ui/social-media';
+import { usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function GiveawayThankYou() {
-      // Social media links data
-    const socialLinks: SocialItem[] = [
-      {
-        href: "https://www.youtube.com/@theshawnshop",
-        ariaLabel: "YouTube",
-        tooltip: "YouTube",
-        color: "#FF0000",
-        svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg",
-      },
-      {
-        href: "https://instagram.com/attheshawnshop",
-        ariaLabel: "Instagram",
-        tooltip: "Instagram",
-        color: "#E4405F",
-        svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg",
-      },
-      {
-        href: "https://www.tiktok.com/@theshawnshop",
-        ariaLabel: "TikTok",
-        tooltip: "TikTok",
-        color: "#FE2C55",
-        svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg",
-      },
-      {
-        href: "https://medium.com/@theshawnshop",
-        ariaLabel: "Medium",
-        tooltip: "Medium",
-        color: "#000000",
-        svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/medium.svg",
-      },
-      {
-        href: "https://www.x.com/theshawnshop",
-        ariaLabel: "X (formerly Twitter)",
-        tooltip: "X (formerly Twitter)",
-        color: "#000000",
-        svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg",
-      },
-    ];
+  const { flash } = usePage().props as any;
+
+  // Show success toast when page loads with flash message
+  useEffect(() => {
+    if (flash?.success) {
+      toast.success("Congrats!", {
+        description: flash.success,
+        duration: 5000,
+      });
+    }
+  }, [flash]);
+
+  console.log(flash);
+
+  // Social media links data
+  const socialLinks: SocialItem[] = [
+    {
+      href: "https://www.youtube.com/@theshawnshop",
+      ariaLabel: "YouTube",
+      tooltip: "YouTube",
+      color: "#FF0000",
+      svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg",
+    },
+    {
+      href: "https://instagram.com/attheshawnshop",
+      ariaLabel: "Instagram",
+      tooltip: "Instagram",
+      color: "#E4405F",
+      svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg",
+    },
+    {
+      href: "https://www.tiktok.com/@theshawnshop",
+      ariaLabel: "TikTok",
+      tooltip: "TikTok",
+      color: "#FE2C55",
+      svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg",
+    },
+    {
+      href: "https://medium.com/@theshawnshop",
+      ariaLabel: "Medium",
+      tooltip: "Medium",
+      color: "#000000",
+      svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/medium.svg",
+    },
+    {
+      href: "https://www.x.com/theshawnshop",
+      ariaLabel: "X (formerly Twitter)",
+      tooltip: "X (formerly Twitter)",
+      color: "#000000",
+      svgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
+      <Head title="Thank You - Your Guide is on the Way!" />
+
       <section id="hero">
         <Feature1
           title="Your free guide is headed to your inbox!"

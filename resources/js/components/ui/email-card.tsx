@@ -2,36 +2,82 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { useState } from "react"
-import { router } from "@inertiajs/react"
+import { useState, useEffect } from "react"
+import { router, usePage } from "@inertiajs/react"
+import { route } from "ziggy-js"
 
 interface EmailCardProps {
   title?: string;
   description?: string;
+  leadRoute?: string;
+  redirectUrl?: string;
 }
 
 export default function EmailCard({
   title = "Email Subscription Card",
-  description = "A minimal, polished interface"
+  description = "A minimal, polished interface",
+  leadRoute = "default",
+  redirectUrl
 }: EmailCardProps) {
+  const { flash, errors } = usePage().props as any;
   const [formData, setFormData] = useState({
     name: '',
-    email: ''
+    email: '',
+    lead_route: leadRoute,
+    redirect_url: redirectUrl
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  // Handle flash messages and errors from the server
+  useEffect(() => {
+    if (flash?.success) {
+      setSuccess(flash.success);
+      setError('');
+
+      // Clear form on success
+      setFormData({
+        name: '',
+        email: '',
+        lead_route: leadRoute,
+        redirect_url: redirectUrl
+      });
+    }
+
+    if (flash?.error) {
+      setError(flash.error);
+      setSuccess('');
+    }
+  }, [flash, leadRoute, redirectUrl]);
+
+  // Handle validation errors from the server
+  useEffect(() => {
+    if (errors?.name) {
+      setError(errors.name);
+    } else if (errors?.email) {
+      setError(errors.email);
+    } else if (errors?.lead_route) {
+      setError(errors.lead_route);
+    } else if (errors?.error) {
+      setError(errors.error);
+    }
+  }, [errors]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError('');
+    setSuccess('');
 
-    // Simulate form submission
-    setTimeout(() => {
-      // Here you would typically send the data to your backend
-      console.log('Form submitted:', formData);
-
-      // Redirect to thank you page
-      router.visit('/giveaway/thank-you');
-    }, 1000);
+    // Use Inertia.js router.post for better Laravel integration
+    // Don't preserve scroll when redirecting to thank you page
+    router.post(route('email.submit'), formData, {
+      preserveScroll: true,
+      onFinish: () => {
+        setIsSubmitting(false);
+      }
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +86,7 @@ export default function EmailCard({
       [e.target.name]: e.target.value
     });
   };
+
   return (
     <div className="w-full bg-background flex items-center justify-center pb-4 px-4 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.02]">
@@ -55,6 +102,18 @@ export default function EmailCard({
 
         <form onSubmit={handleSubmit} className="gradient-border">
           <Card className="p-6 space-y-4 shadow-lg shadow-primary/5 border-0">
+            {success && (
+              <div className="p-3 bg-green-50 border border-green-200 rounded-md">
+                <p className="text-sm text-green-600">{success}</p>
+              </div>
+            )}
+
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+                <p className="text-sm text-red-600">{error}</p>
+              </div>
+            )}
+
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium text-foreground">
                 First Name
@@ -66,7 +125,6 @@ export default function EmailCard({
                 placeholder="Enter your first name"
                 value={formData.name}
                 onChange={handleInputChange}
-                required
                 className="w-full input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
               />
             </div>
@@ -81,7 +139,6 @@ export default function EmailCard({
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleInputChange}
-                required
                 className="w-full input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
               />
             </div>
