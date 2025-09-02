@@ -19,9 +19,9 @@ const SocialTooltip = React.forwardRef<HTMLUListElement, SocialTooltipProps>(
   ({ className, items, ...props }, ref) => {
     // Base styles for the component
     const baseIconStyles =
-      "relative flex items-center justify-center w-12 h-12 rounded-full bg-background overflow-hidden transition-all duration-300 ease-in-out group-hover:shadow-lg";
+      "relative flex items-center justify-center w-16 h-16 rounded-full bg-background overflow-hidden transition-all duration-300 ease-in-out group-hover:shadow-lg";
     const baseSvgStyles =
-      "relative z-10 w-7 h-7 transition-all duration-300 ease-in-out group-hover:brightness-0 group-hover:invert";
+      "relative z-10 w-10 h-10 transition-all duration-300 ease-in-out group-hover:brightness-0 group-hover:invert";
     const baseFilledStyles =
       "absolute bottom-0 left-0 w-full h-0 transition-all duration-300 ease-in-out group-hover:h-full";
     const baseTooltipStyles =

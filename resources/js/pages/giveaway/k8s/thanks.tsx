@@ -79,8 +79,8 @@ export default function GiveawayThankYou() {
       {/* Social Media Section */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-2xl font-semibold mb-4">Let's Connect!</h2>
-          <p className="text-muted-foreground mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Let's Connect!</h2>
+          <p className="text-muted-foreground mb-8 text-lg">
             Stay updated with our latest tutorials, tips, and community updates
           </p>
           <SocialTooltip items={socialLinks} />
