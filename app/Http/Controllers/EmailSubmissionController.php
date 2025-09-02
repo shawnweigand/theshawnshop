@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MailerLiteService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 
 class EmailSubmissionController extends Controller
 {
+    public function __construct(
+        private MailerLiteService $mailerLiteService
+    ) {}
+
     /**
      * Handle the incoming email submission request.
      */
@@ -22,11 +27,22 @@ class EmailSubmissionController extends Controller
         ]);
 
         try {
+            // Create subscriber in MailerLite
+            $fields = ['name' => $validated['name']];
+            $groups = [config('services.mailerlite.group_ids.' . $validated['mail_group'])];
+
+            $result = $this->mailerLiteService->createSubscriber(
+                email: $validated['email'],
+                fields: $fields,
+                groups: $groups
+            );
+
             // Log the successful submission
             Log::info('Email submission successful', [
                 'email' => $validated['email'],
                 'name' => $validated['name'],
                 'mail_group' => $validated['mail_group'],
+                'mailerlite_response' => $result,
             ]);
 
             // If redirect URL is provided, redirect to it with success message
@@ -43,6 +59,11 @@ class EmailSubmissionController extends Controller
                 'error' => $e->getMessage(),
                 'request_data' => $request->all(),
             ]);
+
+            // Check if it's a MailerLite API error
+            if (str_contains($e->getMessage(), 'MailerLite')) {
+                return redirect()->back()->withErrors(['error' => 'Failed to subscribe to newsletter. Please try again.']);
+            }
 
             return redirect()->back()->withErrors(['error' => 'Something went wrong. Please try again.']);
         }

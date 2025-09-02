@@ -20,6 +20,12 @@ Route::get('/giveaway/k8s', function () {
 
 Route::post('/email/submit', EmailSubmissionController::class)->name('email.submit');
 
+// Newsletter routes
+Route::prefix('newsletter')->group(function () {
+    Route::post('/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/status', [App\Http\Controllers\NewsletterController::class, 'status'])->name('newsletter.status');
+});
+
 Route::get('/giveaway/k8s/thanks', function () {
     return Inertia::render('giveaway/k8s/thanks');
 })->name('giveaway.k8s.thanks');
