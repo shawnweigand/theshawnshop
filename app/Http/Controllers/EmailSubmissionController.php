@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\EmailData;
-use App\Models\Email;
-use App\Models\Lead;
+use App\Services\MailerLiteService;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Inertia\Inertia;
 
 class EmailSubmissionController extends Controller
 {
+    public function __construct(
+        private MailerLiteService $mailerLiteService
+    ) {}
+
     /**
      * Handle the incoming email submission request.
      */
@@ -23,46 +22,27 @@ class EmailSubmissionController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|min:2|max:255',
             'email' => 'required|email|max:255',
-            'lead_route' => 'required|string|max:255',
+            'mail_group' => 'required|string|max:255',
             'redirect_url' => 'nullable|string|max:500',
         ]);
 
         try {
+            // Create subscriber in MailerLite
+            $fields = ['name' => $validated['name']];
+            $groups = [config('services.mailerlite.group_ids.' . $validated['mail_group'])];
 
-            // Start a database transaction
-            DB::beginTransaction();
-
-            // Create or find the email
-            $email = Email::firstOrCreate(
-                ['email' => $validated['email']],
-                [
-                    'first_name' => $validated['name'],
-                    'email' => $validated['email'],
-                ]
+            $result = $this->mailerLiteService->createSubscriber(
+                email: $validated['email'],
+                fields: $fields,
+                groups: $groups
             );
-
-            // If the email already existed, update the first name if it's different
-            if ($email->wasRecentlyCreated === false && $email->first_name !== $validated['name']) {
-                $email->update(['first_name' => $validated['name']]);
-            }
-
-            // Create or find the lead for the specified route
-            $lead = Lead::firstOrCreate(
-                ['route' => $validated['lead_route']],
-                ['route' => $validated['lead_route']]
-            );
-
-            // Attach the email to the lead (many-to-many relationship)
-            $email->leads()->syncWithoutDetaching([$lead->id]);
-
-            // Commit the transaction
-            DB::commit();
 
             // Log the successful submission
             Log::info('Email submission successful', [
                 'email' => $validated['email'],
                 'name' => $validated['name'],
-                'lead_route' => $lead->route,
+                'mail_group' => $validated['mail_group'],
+                'mailerlite_response' => $result,
             ]);
 
             // If redirect URL is provided, redirect to it with success message
@@ -74,14 +54,16 @@ class EmailSubmissionController extends Controller
             return redirect()->back()->with('success', 'Success!');
 
         } catch (\Exception $e) {
-            // Rollback the transaction on error
-            DB::rollBack();
-
             // Log the error
             Log::error('Email submission failed', [
                 'error' => $e->getMessage(),
                 'request_data' => $request->all(),
             ]);
+
+            // Check if it's a MailerLite API error
+            if (str_contains($e->getMessage(), 'MailerLite')) {
+                return redirect()->back()->withErrors(['error' => 'Failed to subscribe to newsletter. Please try again.']);
+            }
 
             return redirect()->back()->withErrors(['error' => 'Something went wrong. Please try again.']);
         }

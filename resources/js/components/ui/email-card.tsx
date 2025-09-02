@@ -9,21 +9,21 @@ import { route } from "ziggy-js"
 interface EmailCardProps {
   title?: string;
   description?: string;
-  leadRoute?: string;
+  mailGroup?: string;
   redirectUrl?: string;
 }
 
 export default function EmailCard({
   title = "Email Subscription Card",
   description = "A minimal, polished interface",
-  leadRoute = "default",
+  mailGroup = "default",
   redirectUrl
 }: EmailCardProps) {
   const { flash, errors } = usePage().props as any;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    lead_route: leadRoute,
+    mail_group: mailGroup,
     redirect_url: redirectUrl
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,7 +40,7 @@ export default function EmailCard({
       setFormData({
         name: '',
         email: '',
-        lead_route: leadRoute,
+        mail_group: mailGroup,
         redirect_url: redirectUrl
       });
     }
@@ -49,7 +49,7 @@ export default function EmailCard({
       setError(flash.error);
       setSuccess('');
     }
-  }, [flash, leadRoute, redirectUrl]);
+  }, [flash, mailGroup, redirectUrl]);
 
   // Handle validation errors from the server
   useEffect(() => {
@@ -57,8 +57,8 @@ export default function EmailCard({
       setError(errors.name);
     } else if (errors?.email) {
       setError(errors.email);
-    } else if (errors?.lead_route) {
-      setError(errors.lead_route);
+    } else if (errors?.mail_group) {
+      setError(errors.mail_group);
     } else if (errors?.error) {
       setError(errors.error);
     }

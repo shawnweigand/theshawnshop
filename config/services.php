@@ -48,4 +48,13 @@ return [
         'redirect_url' => env('WORKOS_REDIRECT_URL'),
     ],
 
+    'mailerlite' => [
+        'api_key' => env('MAILERLITE_API_KEY'),
+        'group_ids' => [
+            'giveaway' => [
+                'k8s' => "164431925104084060",
+            ]
+        ]
+    ],
+
 ];
