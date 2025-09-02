@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailSubmissionController;
 use App\Http\Controllers\StripeProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,9 +14,37 @@ Route::get('/', function () {
     return Inertia::render('landing-demo');
 })->name('landing-demo');
 
-Route::get('/giveaway', function () {
-    return Inertia::render('giveaway');
-})->name('giveaway');
+Route::get('/giveaway/k8s', function () {
+    return Inertia::render('giveaway/k8s/opt-in');
+})->name('giveaway.k8s.opt-in');
+
+Route::post('/email/submit', EmailSubmissionController::class)->name('email.submit');
+
+// Newsletter routes
+Route::prefix('newsletter')->group(function () {
+    Route::post('/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/status', [App\Http\Controllers\NewsletterController::class, 'status'])->name('newsletter.status');
+});
+
+Route::get('/giveaway/k8s/thanks', function () {
+    return Inertia::render('giveaway/k8s/thanks');
+})->name('giveaway.k8s.thanks');
+
+Route::get('/social-demo', function () {
+    return Inertia::render('social-demo');
+})->name('social-demo');
+
+Route::get('/privacy', function () {
+    return Inertia::render('privacy');
+})->name('privacy');
+
+Route::get('/terms', function () {
+    return Inertia::render('terms');
+})->name('terms');
+
+Route::get('/cookies', function () {
+    return Inertia::render('cookies');
+})->name('cookies');
 
 Route::middleware([
     'auth',

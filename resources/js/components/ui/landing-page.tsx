@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { usePage, Link } from "@inertiajs/react"
+import { route } from "ziggy-js"
 import { SharedData } from "@/types"
 
 // Animation variants
@@ -86,7 +87,7 @@ export function DesignAgency() {
         transition={{ duration: 0.5 }}
         className={`sticky top-0 z-50 w-full border-b bg-background ${scrollY > 50 ? "shadow-md" : ""}`}
       >
-        <div className="container mx-auto max-w-[1400px] flex h-16 items-center justify-between border-x border-muted px-2 md:px-4">
+        <div className="w-full flex h-16 items-center justify-between px-4 md:px-8">
           <div className="flex items-center gap-3">
             <a href="/" className="flex items-center space-x-3">
               <motion.div
@@ -146,7 +147,7 @@ export function DesignAgency() {
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 bg-background md:hidden"
         >
-          <div className="container mx-auto max-w-[1400px] flex h-16 items-center justify-between px-2 md:px-4">
+          <div className="w-full flex h-16 items-center justify-between px-4 md:px-8">
             <div className="flex items-center gap-3">
               <a href="/" className="flex items-center space-x-3">
                 <div className="h-10 w-10 rounded-3xl bg-primary flex items-center justify-center">
@@ -580,7 +581,7 @@ export function DesignAgency() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
-          className="container mx-auto max-w-[1400px] grid gap-3 px-2 py-10 md:px-4 lg:grid-cols-4 border-x border-muted"
+          className="w-full grid gap-3 px-4 py-10 md:px-8 lg:grid-cols-4"
         >
           <div className="space-y-3">
             <a href="/" className="flex items-center space-x-3">
@@ -669,15 +670,15 @@ export function DesignAgency() {
             <div>
               <h3 className="text-lg font-medium">Legal</h3>
               <nav className="mt-4 flex flex-col space-y-2 text-sm">
-                <a href="#" className="text-muted-foreground hover:text-foreground">
+                <Link href={route('privacy')} className="text-muted-foreground hover:text-foreground">
                   Privacy Policy
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-foreground">
+                </Link>
+                <Link href={route('terms')} className="text-muted-foreground hover:text-foreground">
                   Terms of Service
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-foreground">
+                </Link>
+                <Link href={route('cookies')} className="text-muted-foreground hover:text-foreground">
                   Cookie Policy
-                </a>
+                </Link>
               </nav>
             </div>
           </div>
@@ -695,7 +696,7 @@ export function DesignAgency() {
           </div>
         </motion.div>
         <div className="border-t">
-          <div className="container mx-auto max-w-[1400px] flex flex-col items-center justify-between gap-3 py-6 md:h-16 md:flex-row md:py-0 px-2 md:px-4">
+          <div className="w-full flex flex-col items-center justify-between gap-3 py-6 md:h-16 md:flex-row md:py-0 px-4 md:px-8">
             <p className="text-xs text-muted-foreground">
               &copy; {new Date().getFullYear()} Design Studio. All rights reserved.
             </p>

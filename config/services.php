@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
+        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        'scheme' => 'https',
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -39,6 +46,15 @@ return [
         'client_id' => env('WORKOS_CLIENT_ID'),
         'secret' => env('WORKOS_API_KEY'),
         'redirect_url' => env('WORKOS_REDIRECT_URL'),
+    ],
+
+    'mailerlite' => [
+        'api_key' => env('MAILERLITE_API_KEY'),
+        'group_ids' => [
+            'giveaway' => [
+                'k8s' => "164431925104084060",
+            ]
+        ]
     ],
 
 ];
