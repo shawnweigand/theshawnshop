@@ -14,6 +14,10 @@ use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 //     return Inertia::render('landing-demo');
 // })->name('landing-demo');
 
+Route::get('/', function () {
+    return redirect()->route('giveaway.k8s.opt-in');
+})->name('home');
+
 Route::get('/giveaway/k8s', function () {
     return Inertia::render('giveaway/k8s/opt-in');
 })->name('giveaway.k8s.opt-in');
