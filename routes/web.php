@@ -51,5 +51,10 @@ Route::get('/cookies', function () {
 //     Route::resource('stripe-products', StripeProductController::class)->names('products');
 // });
 
+// For liveness probe
+Route::get('/healthz', function () {
+    return response()->json(['status' => 'healthy', 'code' => 200], 200);
+});
+
 // require __DIR__.'/settings.php';
 // require __DIR__.'/auth.php';
