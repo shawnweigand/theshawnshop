@@ -10,9 +10,9 @@ use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 //     return Inertia::render('welcome');
 // })->name('home');
 
-Route::get('/', function () {
-    return Inertia::render('landing-demo');
-})->name('landing-demo');
+// Route::get('/', function () {
+//     return Inertia::render('landing-demo');
+// })->name('landing-demo');
 
 Route::get('/giveaway/k8s', function () {
     return Inertia::render('giveaway/k8s/opt-in');
@@ -20,19 +20,9 @@ Route::get('/giveaway/k8s', function () {
 
 Route::post('/email/submit', EmailSubmissionController::class)->name('email.submit');
 
-// Newsletter routes
-Route::prefix('newsletter')->group(function () {
-    Route::post('/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-    Route::get('/status', [App\Http\Controllers\NewsletterController::class, 'status'])->name('newsletter.status');
-});
-
 Route::get('/giveaway/k8s/thanks', function () {
     return Inertia::render('giveaway/k8s/thanks');
 })->name('giveaway.k8s.thanks');
-
-Route::get('/social-demo', function () {
-    return Inertia::render('social-demo');
-})->name('social-demo');
 
 Route::get('/privacy', function () {
     return Inertia::render('privacy');
@@ -46,20 +36,20 @@ Route::get('/cookies', function () {
     return Inertia::render('cookies');
 })->name('cookies');
 
-Route::middleware([
-    'auth',
-    ValidateSessionWithWorkOS::class,
-])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+// Route::middleware([
+//     'auth',
+//     ValidateSessionWithWorkOS::class,
+// ])->group(function () {
+//     Route::get('dashboard', function () {
+//         return Inertia::render('dashboard');
+//     })->name('dashboard');
+//
+//     Route::get('products', function () {
+//         return Inertia::render('products');
+//     })->name('products');
+//
+//     Route::resource('stripe-products', StripeProductController::class)->names('products');
+// });
 
-    Route::get('products', function () {
-        return Inertia::render('products');
-    })->name('products');
-
-    Route::resource('stripe-products', StripeProductController::class)->names('products');
-});
-
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+// require __DIR__.'/settings.php';
+// require __DIR__.'/auth.php';
