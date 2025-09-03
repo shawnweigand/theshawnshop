@@ -14,6 +14,10 @@ use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 //     return Inertia::render('landing-demo');
 // })->name('landing-demo');
 
+Route::get('/', function () {
+    return redirect()->route('giveaway.k8s.opt-in');
+})->name('home');
+
 Route::get('/giveaway/k8s', function () {
     return Inertia::render('giveaway/k8s/opt-in');
 })->name('giveaway.k8s.opt-in');
@@ -50,6 +54,11 @@ Route::get('/cookies', function () {
 //
 //     Route::resource('stripe-products', StripeProductController::class)->names('products');
 // });
+
+// For liveness probe
+Route::get('/healthz', function () {
+    return response()->json(['status' => 'healthy', 'code' => 200], 200);
+});
 
 // require __DIR__.'/settings.php';
 // require __DIR__.'/auth.php';

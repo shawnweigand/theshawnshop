@@ -3,8 +3,11 @@ deployment:
   image:
     repository: shawnweigand/prod
     tag: shawnshop
+  probes:
+    enabled: true
   registry:
     imagePullSecret: docker-registry-secret
+
 serviceAccount:
   name: docker-registry-serviceaccount
   imagePullSecret: docker-registry-secret
@@ -26,10 +29,9 @@ config:
   APP_NAME: "The Shawn Shop"
   APP_URL: https://theshawnshop.com
   APP_ENV: production
-  DB_CONNECTION: mysql
+  # DB_CONNECTION: mysql
   SESSION_DRIVER: cookie
   MAIL_MAILER: mailgun
   MAILGUN_DOMAIN: theshawnshop.com
-  QUEUE_CONNECTION: database
   WORKOS_REDIRECT_URL: https://theshawnshop.com/authenticate
 
