@@ -3,8 +3,11 @@ deployment:
   image:
     repository: shawnweigand/prod
     tag: shawnshop
+  probes:
+    enabled: false
   registry:
     imagePullSecret: docker-registry-secret
+
 serviceAccount:
   name: docker-registry-serviceaccount
   imagePullSecret: docker-registry-secret

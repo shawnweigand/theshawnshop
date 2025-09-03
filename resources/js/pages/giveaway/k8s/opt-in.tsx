@@ -42,7 +42,7 @@ export default function Giveaway() {
       {/* Hero Feature Section */}
       <section id="hero">
         <Feature1
-          title="Feel stuck in your IT job?<br /><i>Supercharge</i> your 6-figure cloud skills now."
+          title={`Feel stuck in your IT job?<br /><i style="color: #316DE6;">Supercharge</i> your 6-figure cloud skills <span style="color: #316DE6; font-weight: bold; text-decoration: underline; text-decoration-color: #316DE6; text-decoration-thickness: 3px; text-decoration-style: wavy;">now</span>.`}
           description="Take the first step towards mastering a 6-figure skillset with this free, hands-on video guide."
           imageSrc="/images/8stepstok8s/laptop.png"
           imageAlt="Laptop with Kubernetes setup"
