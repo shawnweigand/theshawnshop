@@ -1,0 +1,35 @@
+deployment:
+  replicas: 1
+  image:
+    repository: shawnweigand/prod
+    tag: shawnshop
+  registry:
+    imagePullSecret: docker-registry-secret
+serviceAccount:
+  name: docker-registry-serviceaccount
+  imagePullSecret: docker-registry-secret
+
+ingress:
+  host: theshawnshop.com
+  tls: true
+  externalPort: 80
+  internalPort: 8080
+
+issuer:
+  email: weigandshawn@gmail.com
+  server: https://acme-v02.api.letsencrypt.org/directory
+
+pdb:
+  minAvailable: 1
+
+config:
+  APP_NAME: "The Shawn Shop"
+  APP_URL: https://theshawnshop.com
+  APP_ENV: production
+  DB_CONNECTION: mysql
+  SESSION_DRIVER: cookie
+  MAIL_MAILER: mailgun
+  MAILGUN_DOMAIN: theshawnshop.com
+  QUEUE_CONNECTION: database
+  WORKOS_REDIRECT_URL: https://theshawnshop.com/authenticate
+
