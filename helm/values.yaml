@@ -30,6 +30,5 @@ config:
   SESSION_DRIVER: cookie
   MAIL_MAILER: mailgun
   MAILGUN_DOMAIN: theshawnshop.com
-  QUEUE_CONNECTION: database
   WORKOS_REDIRECT_URL: https://theshawnshop.com/authenticate
 
