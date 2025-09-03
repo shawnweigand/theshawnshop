@@ -27,6 +27,7 @@ pdb:
 
 config:
   APP_NAME: "The Shawn Shop"
+  VITE_APP_NAME: "The Shawn Shop"
   APP_URL: https://theshawnshop.com
   APP_ENV: production
   # DB_CONNECTION: mysql
