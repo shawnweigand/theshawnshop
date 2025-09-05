@@ -72,7 +72,8 @@ function Feature({
               <img
                 src={imageSrc}
                 alt={imageAlt}
-                className="w-full h-full object-cover rounded-md"
+                // className="w-full h-full object-cover rounded-md"
+                className="w-full h-full object-cover object-bottom rounded-md"
               />
             )}
           </div>

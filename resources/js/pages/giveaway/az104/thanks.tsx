@@ -9,7 +9,7 @@ import { usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 
-export default function GiveawayThankYou() {
+export default function AZ104GiveawayThankYou() {
   const { flash } = usePage().props as any;
 
   // Show success toast when page loads with flash message
@@ -69,10 +69,10 @@ export default function GiveawayThankYou() {
 
       <section id="hero">
         <Feature1
-          title="Your free guide is headed to your inbox!"
+          title="Your free AZ-104 study guide is headed to your inbox!"
           description="Don't see it? Make sure to check your promotions folder. Email shawn@theshawnshop.com for assistance."
-          imageSrc="/images/8stepstok8s/laptop.png"
-          imageAlt="Laptop with Kubernetes setup"
+          imageSrc="/images/az104/laptop.png"
+          imageAlt="Laptop with Azure setup"
         />
       </section>
 
@@ -81,7 +81,7 @@ export default function GiveawayThankYou() {
         <div className="container mx-auto max-w-4xl px-4 text-center">
           <h2 className="text-3xl font-semibold mb-4">Let's Connect!</h2>
           <p className="text-muted-foreground mb-8 text-lg">
-            Stay updated with our latest tutorials, tips, and community updates
+            Stay updated with our latest Azure tutorials, certification tips, and community updates
           </p>
           <SocialTooltip items={socialLinks} />
         </div>
@@ -91,11 +91,11 @@ export default function GiveawayThankYou() {
       <section className="py-16">
         <Feature
           badgeText="Welcome"
-          title="We can't wait to help you on tech career journey!"
-          description="Be on the lookout for some amazing new content and exclusive offers for courses on the most in-demand skills in the industry. We're hard at work to deliver the best value to you and the tech community. Talk soon!<br /><br />Sincerely,<br />Shawn from The Shawn Shop"
+          title="We can't wait to help you on your Azure certification journey!"
+          description="Be on the lookout for some amazing new content and exclusive offers for courses on the most in-demand Azure skills in the industry. We're hard at work to deliver the best value to you and the tech community. Talk soon!<br /><br />Sincerely,<br />Shawn from The Shawn Shop"
           features={[]}
           imageSrc="/images/me.jpg"
-          imageAlt="Kubernetes learning setup"
+          imageAlt="Azure learning setup"
         />
       </section>
 
