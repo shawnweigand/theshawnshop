@@ -58,12 +58,12 @@ export default function Resources() {
                   <p className="text-sm text-muted-foreground">Resources:</p>
                   <ul className="space-y-1">
                     <li>
-                      <a href="https://www.youtube.com/watch?v=0Knf9nub4-k" target="_blank" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      <a href="https://www.youtube.com/watch?v=0Knf9nub4-k" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                         AZ-104 Administrator Associate Study Cram v2 by John Savill
                       </a>
                     </li>
                     <li>
-                      <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/?practice-assessment-type=certification#certification-prepare-for-the-exam" target="_blank" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/?practice-assessment-type=certification#certification-prepare-for-the-exam" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                         Microsoft Azure Administrator Training Course by Microsoft
                       </a>
                     </li>
