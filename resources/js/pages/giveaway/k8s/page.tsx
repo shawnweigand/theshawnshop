@@ -3,6 +3,7 @@ import { Cta4 } from "@/components/ui/cta-4"
 import { Feature } from "@/components/ui/feature"
 import { Feature1 } from "@/components/ui/feature-1"
 import { CTA } from "@/components/ui/call-to-action"
+import { HoverLinkDemo } from "@/components/ui/hover-link-demo"
 import { MoveRight, PhoneCall, Copy, Check } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link } from "@inertiajs/react"
@@ -331,6 +332,30 @@ export default function GiveawayPage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* HoverLinkPreview Demo */}
+      <section className="px-4 bg-muted/30">
+        <div className="container mx-auto max-w-4xl">
+          <HoverLinkDemo
+            title=""
+            description=""
+            sentences={[
+              {
+                sentence: "Check out my 30-day roadmap to becoming a Kubernetes expert!",
+                links: [
+                  {
+                    href: route('giveaway.k8s.roadmap'),
+                    previewImage: "/images/k8s-roadmap/roadmap1.png",
+                    imageAlt: "30-day Kubernetes roadmap - Day 1-5",
+                    linkText: "30-day roadmap"
+                  }
+                ]
+              }
+            ]}
+            instructionText="(Hover over the link above to see the preview)"
+          />
         </div>
       </section>
 

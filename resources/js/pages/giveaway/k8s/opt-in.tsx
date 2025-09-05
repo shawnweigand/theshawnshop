@@ -85,6 +85,19 @@ export default function Giveaway() {
         />
       </section>
 
+      {/* Salaries Image Section */}
+      <section className="pb-16">
+        <div className="container mx-auto max-w-4xl px-4">
+          <div className="flex justify-center">
+            <img
+              src="/images/8stepstok8s/salaries.png"
+              alt="Kubernetes salaries and career opportunities"
+              className="max-w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Feature Section */}
       <section id="about" className="-mt-20 -mb-10">
         <Feature
