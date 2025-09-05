@@ -28,6 +28,14 @@ Route::get('/giveaway/k8s/thanks', function () {
     return Inertia::render('giveaway/k8s/thanks');
 })->name('giveaway.k8s.thanks');
 
+Route::get('/giveaway/k8s/550e8400-e29b-41d4-a716-446655440000', function () {
+    return Inertia::render('giveaway/k8s/page');
+})->name('giveaway.k8s.page');
+
+Route::get('/giveaway/k8s/E9D45393-36AA-4BE2-9C27-38CF9DF14402', function () {
+    return Inertia::render('giveaway/k8s/roadmap');
+})->name('giveaway.k8s.roadmap');
+
 Route::get('/privacy', function () {
     return Inertia::render('privacy');
 })->name('privacy');
