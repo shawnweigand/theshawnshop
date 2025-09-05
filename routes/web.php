@@ -36,6 +36,18 @@ Route::get('/giveaway/k8s/E9D45393-36AA-4BE2-9C27-38CF9DF14402', function () {
     return Inertia::render('giveaway/k8s/roadmap');
 })->name('giveaway.k8s.roadmap');
 
+Route::get('/giveaway/az104', function () {
+    return Inertia::render('giveaway/az104/opt-in');
+})->name('giveaway.az104.opt-in');
+
+Route::get('/giveaway/az104/thanks', function () {
+    return Inertia::render('giveaway/az104/thanks');
+})->name('giveaway.az104.thanks');
+
+Route::get('/giveaway/az104/ACED2B2F-8237-4BCB-BCB3-D74AF35F1559', function () {
+    return Inertia::render('giveaway/az104/page');
+})->name('giveaway.az104.page');
+
 Route::get('/privacy', function () {
     return Inertia::render('privacy');
 })->name('privacy');

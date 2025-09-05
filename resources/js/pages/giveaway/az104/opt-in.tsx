@@ -8,7 +8,7 @@ import { useEffect } from "react"
 import { Link } from "@inertiajs/react"
 import { route } from "ziggy-js"
 
-export default function Giveaway() {
+export default function AZ104Giveaway() {
   useEffect(() => {
     // Handle smooth scrolling for anchor links
     const handleAnchorClick = (e: MouseEvent) => {
@@ -42,12 +42,12 @@ export default function Giveaway() {
       {/* Hero Feature Section */}
       <section id="hero">
         <Feature1
-          title={`Feel <u>stuck</u> in your IT job?<br /><i style="color: #316DE6;">Supercharge</i> your 6-figure cloud skills <span style="color: #316DE6; font-weight: bold;"><u>now</u></span>.`}
-          description="Take the first step towards mastering a 6-figure skillset with this free, hands-on video guide. Changes don't have to take for forever- start in just 13 minutes."
-          imageSrc="/images/8stepstok8s/laptop.png"
-          imageAlt="Laptop with Kubernetes setup"
+          title={`<i style="color: #316DE6;">Maximize</i> your results<br />while <i style="color: #316DE6; font-weight: bold;">minimizing</i> the struggle.`}
+          description="Take the first step towards mastering Azure Administrator skills with this FREE, comprehensive study guide. Start your certification journey today with proven resources and strategies."
+          imageSrc="/images/az104/laptop.png"
+          imageAlt="Laptop with Azure setup"
           buttonPrimary={{
-            label: "Start Now",
+            label: "Get Free Guide",
             href: "#signup"
           }}
           buttonSecondary={{
@@ -60,42 +60,27 @@ export default function Giveaway() {
       {/* Email Card Component */}
       <section id="signup" className="pb-20">
         <EmailCard
-          title="Get Your Free Guide Now"
-          description="Enter your details below and get your free guide delivered to your inbox."
-          mailGroup="giveaway.k8s"
-          redirectUrl={route('giveaway.k8s.thanks')}
+          title="Get Your Free AZ-104 Study Guide"
+          description="Enter your details below and get your comprehensive study guide delivered to your inbox."
+          mailGroup="giveaway.az104"
+          redirectUrl={route('giveaway.az104.thanks')}
         />
       </section>
 
       {/* CTA Section */}
       <section id="guide" className="-mb-16">
         <Cta4
-          title="In this free guide, you'll learn..."
-          description="Learn by doing and deploy your first application on Kubernetes in just 13 minutes."
+          title="In this free guide, you'll get..."
+          description="Master the AZ-104 exam with proven resources and step-by-step preparation strategies."
           buttonText="Get Your Guide"
           buttonUrl="#signup"
           items={[
-            "To run your first cluster",
-            "How to deploy your first application",
-            "The Kubectl command line tool",
-            "The difference in K8s vs Docker",
-            "What makes up K8s architecture",
-            "Next steps in your K8s journey",
+            "Step-by-step study plan",
+            "Curated learning resources",
+            "Practice exam strategies",
+            "Exam day preparation tips",
           ]}
         />
-      </section>
-
-      {/* Salaries Image Section */}
-      <section className="pb-16">
-        <div className="container mx-auto max-w-4xl px-4">
-          <div className="flex justify-center">
-            <img
-              src="/images/8stepstok8s/salaries.png"
-              alt="Kubernetes salaries and career opportunities"
-              className="max-w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
-        </div>
       </section>
 
       {/* Feature Section */}
@@ -107,19 +92,19 @@ export default function Giveaway() {
           features={[
             {
               title: "Visual explanations",
-              description: "Watch detailed videos that explain complex concepts in a simple, yet digestible way."
+              description: "Watch detailed videos that explain complex Azure concepts in a simple, yet digestible way."
             },
             {
               title: "Step-by-step tutorials",
-              description: "Follow along as you level up your skills through incremenental learning steps."
+              description: "Follow along as you level up your Azure skills through incremental learning steps."
             },
             {
               title: "Interactive labs",
-              description: "Put your knowledge into practice immediately with hands-on exercises and copyable code snippets."
+              description: "Put your knowledge into practice immediately with hands-on Azure exercises and real-world scenarios."
             }
           ]}
           imageSrc="/images/me.jpg"
-          imageAlt="Kubernetes learning setup"
+          imageAlt="Azure learning setup"
         />
       </section>
 
@@ -127,8 +112,8 @@ export default function Giveaway() {
       <section id="cta">
         <CTA
           badgeText="Let's get started!"
-          title="Ready to Level Up Your Tech Skills?"
-          description="Join thousands of developers who have already mastered Kubernetes and have built a lucrative career in the tech industry. Start building your cloud-native skills and advance your career now."
+          title="Ready to Pass Your AZ-104 Exam?"
+          description="Join thousands of professionals who have already mastered Azure Administrator skills and have built a lucrative career in the cloud industry. Start building your Azure expertise and advance your career now."
           primaryButton={{
             text: "Get Your Free Guide",
             href: "#signup",
