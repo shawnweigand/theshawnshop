@@ -19,18 +19,18 @@ const SocialTooltip = React.forwardRef<HTMLUListElement, SocialTooltipProps>(
   ({ className, items, ...props }, ref) => {
     // Base styles for the component
     const baseIconStyles =
-      "relative flex items-center justify-center w-16 h-16 rounded-full bg-background overflow-hidden transition-all duration-300 ease-in-out group-hover:shadow-lg";
+      "relative flex items-center justify-center w-20 h-20 rounded-full bg-background overflow-hidden transition-all duration-300 ease-in-out group-hover:shadow-lg";
     const baseSvgStyles =
-      "relative z-10 w-10 h-10 transition-all duration-300 ease-in-out group-hover:brightness-0 group-hover:invert";
+      "relative z-10 w-12 h-12 transition-all duration-300 ease-in-out group-hover:brightness-0 group-hover:invert";
     const baseFilledStyles =
       "absolute bottom-0 left-0 w-full h-0 transition-all duration-300 ease-in-out group-hover:h-full";
     const baseTooltipStyles =
-      "absolute bottom-[-40px] left-1/2 -translate-x-1/2 px-2.5 py-1.5 text-sm text-white whitespace-nowrap rounded-md opacity-0 invisible transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:visible group-hover:bottom-[-50px]";
+      "absolute bottom-[-50px] left-1/2 -translate-x-1/2 px-3 py-2 text-base text-white whitespace-nowrap rounded-md opacity-0 invisible transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:visible group-hover:bottom-[-60px]";
 
     return (
       <ul
         ref={ref}
-        className={cn("flex items-center justify-center gap-4", className)}
+        className={cn("flex items-center justify-center gap-6", className)}
         {...props}
       >
         {items.map((item, index) => (

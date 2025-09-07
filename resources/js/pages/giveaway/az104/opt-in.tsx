@@ -60,7 +60,7 @@ export default function AZ104Giveaway() {
       {/* Email Card Component */}
       <section id="signup" className="pb-20">
         <EmailCard
-          title="Get Your Free AZ-104 Study Guide"
+          title="Get Your Free AZ-104 Study Guide!"
           description="Enter your details below and get your comprehensive study guide delivered to your inbox."
           mailGroup="giveaway.az104"
           redirectUrl={route('giveaway.az104.thanks')}
@@ -84,11 +84,11 @@ export default function AZ104Giveaway() {
       </section>
 
       {/* Feature Section */}
-      <section id="about" className="-mt-20 -mb-10">
+      <section id="about" className="-mb-10">
         <Feature
           badgeText="Bio"
           title="Welcome to The Shawn Shop"
-          description="Hey everyone, I'm Shawn and I'm excited to have your here. Over the past 5 years, I've been able to break into the cloud space with no experience and build a career from the ground up. My goal is to make learning these skills approachable, actionable, and something you can immediately put into practice to grow your own journey in the tech landscape."
+          description="Hey everyone, I'm Shawn and I'm excited to have you here. Over the past 5 years, I've been able to break into the cloud space with no experience and build a career from the ground up. My goal is to make learning these skills approachable, actionable, and something you can immediately put into practice to grow your own journey in the tech landscape."
           features={[
             {
               title: "Visual explanations",

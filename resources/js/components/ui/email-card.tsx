@@ -88,34 +88,34 @@ export default function EmailCard({
   };
 
   return (
-    <div className="w-full bg-background flex items-center justify-center pb-4 px-4 relative overflow-hidden">
+    <div className="w-full bg-background flex items-center justify-center pb-8 px-6 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-24 h-24 rounded-full bg-foreground/20 blur-2xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-40 h-40 rounded-full bg-primary/20 blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-1/3 w-32 h-32 rounded-full bg-foreground/20 blur-2xl"></div>
       </div>
 
-      <div className="w-full max-w-md space-y-6 relative z-10">
-        <div className="text-center space-y-2">
-          <h1 className="text-2xl font-semibold text-foreground">{title}</h1>
-          <p className="text-muted-foreground">{description}</p>
+      <div className="w-full max-w-lg space-y-8 relative z-10">
+        <div className="text-center space-y-4">
+          <h1 className="text-3xl md:text-4xl font-semibold text-foreground">{title}</h1>
+          <p className="text-lg text-muted-foreground">{description}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="gradient-border">
-          <Card className="p-6 space-y-4 shadow-lg shadow-primary/5 border-0">
+          <Card className="p-8 space-y-6 shadow-lg shadow-primary/5 border-0">
             {success && (
-              <div className="p-3 bg-green-50 border border-green-200 rounded-md">
-                <p className="text-sm text-green-600">{success}</p>
+              <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+                <p className="text-base text-green-600">{success}</p>
               </div>
             )}
 
             {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-md">
-                <p className="text-sm text-red-600">{error}</p>
+              <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+                <p className="text-base text-red-600">{error}</p>
               </div>
             )}
 
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium text-foreground">
+            <div className="space-y-3">
+              <label htmlFor="name" className="text-base font-medium text-foreground">
                 First Name
               </label>
               <Input
@@ -125,11 +125,11 @@ export default function EmailCard({
                 placeholder="Enter your first name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
+                className="w-full h-12 text-base input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
               />
             </div>
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-foreground">
+            <div className="space-y-3">
+              <label htmlFor="email" className="text-base font-medium text-foreground">
                 Email address
               </label>
               <Input
@@ -139,16 +139,16 @@ export default function EmailCard({
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
+                className="w-full h-12 text-base input-border focus:ring-2 focus:ring-primary/5 focus:border-primary/10 transition-all duration-200"
               />
             </div>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center pt-2">
               <Button
                 type="submit"
-                size="sm"
+                size="lg"
                 disabled={isSubmitting}
-                className="px-6 bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm"
+                className="px-8 py-3 text-base bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm"
               >
                 {isSubmitting ? 'Submitting...' : 'Start Now'}
               </Button>

@@ -36,16 +36,16 @@ export const Feature1 = ({
               {description}
             </p>
             {(buttonPrimary || buttonSecondary) && (
-              <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
+              <div className="flex w-full flex-col justify-center gap-4 sm:flex-row lg:justify-start">
                 {buttonPrimary && (
-                  <Button asChild>
+                  <Button size="lg" className="px-8 py-4 text-lg h-auto" asChild>
                     <a href={buttonPrimary.href}>
                       {buttonPrimary.label}
                     </a>
                   </Button>
                 )}
                 {buttonSecondary && (
-                  <Button variant="outline" asChild>
+                  <Button size="lg" variant="outline" className="px-8 py-4 text-lg h-auto" asChild>
                     <a href={buttonSecondary.href}>
                       {buttonSecondary.label}
                     </a>
