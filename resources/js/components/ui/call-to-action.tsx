@@ -38,7 +38,7 @@ function CTA({
       <div className="container mx-auto max-w-[1400px] px-2 md:px-4">
         <div className="flex flex-col text-center bg-muted rounded-md p-4 lg:p-14 gap-8 items-center">
           <div>
-            <Badge>{badgeText}</Badge>
+            <Badge className="text-base px-4 py-2">{badgeText}</Badge>
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
@@ -48,13 +48,13 @@ function CTA({
               {description}
             </p>
           </div>
-          <div className="flex flex-row gap-4">
-            <Button className="gap-4" variant="outline" asChild>
+          <div className="flex flex-row gap-6">
+            <Button size="lg" className="gap-4 px-8 py-4 text-lg h-auto" variant="outline" asChild>
               <a href={secondaryButton.href}>
                 {secondaryButton.text} {secondaryButton.icon}
               </a>
             </Button>
-            <Button className="gap-4" asChild>
+            <Button size="lg" className="gap-4 px-8 py-4 text-lg h-auto" asChild>
               <a href={primaryButton.href}>
                 {primaryButton.text} {primaryButton.icon}
               </a>

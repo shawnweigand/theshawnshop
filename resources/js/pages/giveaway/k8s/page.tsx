@@ -93,7 +93,7 @@ export default function GiveawayPage() {
 
       {/* Code Snippets Section */}
       <section className="py-16 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-4xl overflow-hidden">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Code Snippets
@@ -107,7 +107,7 @@ export default function GiveawayPage() {
 
 
             {/* Step 3 */}
-            <div className="bg-background rounded-lg p-6 border">
+            <div className="bg-background rounded-lg p-4 sm:p-6 border overflow-hidden">
               <h3 className="text-xl font-semibold text-foreground mb-4">Step 3: Start it up</h3>
               <div className="bg-muted p-4 mb-3 rounded-md relative group">
                 <code className="text-sm text-foreground">
@@ -160,7 +160,7 @@ export default function GiveawayPage() {
             </div>
 
             {/* Step 4 */}
-            <div className="bg-background rounded-lg p-6 border">
+            <div className="bg-background rounded-lg p-4 sm:p-6 border overflow-hidden">
               <h3 className="text-xl font-semibold text-foreground mb-4">Step 4: Namespace</h3>
               <div className="bg-muted p-4 mb-3 rounded-md relative group">
                 <code className="text-sm text-foreground">
@@ -213,10 +213,10 @@ export default function GiveawayPage() {
             </div>
 
             {/* Step 5 */}
-            <div className="bg-background rounded-lg p-6 border">
+            <div className="bg-background rounded-lg p-4 sm:p-6 border overflow-hidden">
               <h3 className="text-xl font-semibold text-foreground mb-4">Step 5: Deployment</h3>
               <div className="bg-muted p-4 mb-3 rounded-md relative group">
-                <code className="text-sm text-foreground whitespace-pre">
+                <code className="text-sm text-foreground whitespace-pre overflow-x-auto block">
 {`kubectl create deployment shawnshop \\
   --image=mcr.microsoft.com/azuredocs/aks-hello-world:v1 \\
   --namespace=shawnshop`}
@@ -234,7 +234,7 @@ export default function GiveawayPage() {
                 </button>
               </div>
               <div className="bg-muted p-4 mb-3 rounded-md relative group">
-                <code className="text-sm text-foreground whitespace-pre">
+                <code className="text-sm text-foreground whitespace-pre overflow-x-auto block">
 {`kubectl set env deployment/shawnshop TITLE='Welcome to The Shawn Shop!' \\
   --namespace=shawnshop`}
                 </code>
@@ -251,7 +251,7 @@ export default function GiveawayPage() {
                 </button>
               </div>
               <div className="bg-muted p-4 rounded-md relative group">
-                <code className="text-sm text-foreground whitespace-pre">
+                <code className="text-sm text-foreground whitespace-pre overflow-x-auto block">
 {`kubectl get deployment shawnshop \\
   --namespace=shawnshop \\
   -o jsonpath='{.spec.template.spec.containers[0].env[*]}'`}
@@ -271,10 +271,10 @@ export default function GiveawayPage() {
             </div>
 
             {/* Step 6 */}
-            <div className="bg-background rounded-lg p-6 border">
+            <div className="bg-background rounded-lg p-4 sm:p-6 border overflow-hidden">
               <h3 className="text-xl font-semibold text-foreground mb-4">Step 6: Service</h3>
               <div className="bg-muted p-4 rounded-md relative group">
-                <code className="text-sm text-foreground whitespace-pre">
+                <code className="text-sm text-foreground whitespace-pre overflow-x-auto block">
 {`kubectl expose deployment shawnshop \\
   --namespace=shawnshop \\
   --type=NodePort \\
@@ -295,7 +295,7 @@ export default function GiveawayPage() {
             </div>
 
             {/* Step 7 */}
-            <div className="bg-background rounded-lg p-6 border">
+            <div className="bg-background rounded-lg p-4 sm:p-6 border overflow-hidden">
               <h3 className="text-xl font-semibold text-foreground mb-4">Step 7: Check it out!</h3>
               <div className="bg-muted p-4 mb-3 rounded-md relative group">
                 <code className="text-sm text-foreground">
@@ -314,7 +314,7 @@ export default function GiveawayPage() {
                 </button>
               </div>
               <div className="bg-muted p-4 rounded-md relative group">
-                <code className="text-sm text-foreground">
+                <code className="text-sm text-foreground break-all">
                   http://127.0.0.1:8001/api/v1/namespaces/shawnshop/services/shawnshop:80/proxy/
                 </code>
                 <button

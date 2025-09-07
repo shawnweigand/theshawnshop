@@ -37,7 +37,7 @@ function Feature({
   return (
     <div className="w-full pt-8 lg:pt-16 pb-20 lg:pb-40">
       <div className="container mx-auto max-w-[1400px] px-2 md:px-4">
-        <div className="grid border rounded-lg container p-8 grid-cols-1 gap-8 items-center lg:grid-cols-2">
+        <div className="grid border-2 border-black rounded-lg container p-8 grid-cols-1 gap-8 items-center lg:grid-cols-2">
           <div className="flex gap-10 flex-col">
             <div className="flex gap-4 flex-col">
               <div>
@@ -53,13 +53,13 @@ function Feature({
                 />
               </div>
             </div>
-            <div className="grid lg:pl-6 grid-cols-1 sm:grid-cols-3 items-start lg:grid-cols-1 gap-6">
+            <div className="grid lg:pl-6 grid-cols-1 sm:grid-cols-3 items-start lg:grid-cols-1 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="flex flex-row gap-6 items-start">
-                  <Check className="w-4 h-4 mt-2 text-primary" />
-                  <div className="flex flex-col gap-1">
-                    <p>{feature.title}</p>
-                    <p className="text-muted-foreground text-sm">
+                  <Check className="w-6 h-6 mt-1 text-primary" />
+                  <div className="flex flex-col gap-2">
+                    <p className="text-lg font-medium">{feature.title}</p>
+                    <p className="text-muted-foreground text-base">
                       {feature.description}
                     </p>
                   </div>

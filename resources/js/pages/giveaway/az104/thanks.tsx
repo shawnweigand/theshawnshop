@@ -81,7 +81,7 @@ export default function AZ104GiveawayThankYou() {
         <div className="container mx-auto max-w-4xl px-4 text-center">
           <h2 className="text-3xl font-semibold mb-4">Let's Connect!</h2>
           <p className="text-muted-foreground mb-8 text-lg">
-            Stay updated with our latest Azure tutorials, certification tips, and community updates
+            Stay updated with our latest tutorials, tips, and community updates
           </p>
           <SocialTooltip items={socialLinks} />
         </div>
