@@ -42,8 +42,9 @@ export default function AZ104Giveaway() {
       {/* Hero Feature Section */}
       <section id="hero">
         <Feature1
-          title={`<i style="color: #316DE6;">Maximize</i> your results<br />while <i style="color: #316DE6; font-weight: bold;">minimizing</i> the struggle.`}
-          description="Take the first step towards mastering Azure Administrator skills with this FREE, comprehensive study guide. Start your certification journey today with proven resources and strategies."
+          title={`Pass your AZ-104 exam with this <i style="color: #316DE6;">free</i>, comprehensive study guide.`}
+        //   title={`<i style="color: #316DE6;">Maximize</i> your results<br />while <i style="color: #316DE6; font-weight: bold;">minimizing</i> the struggle.`}
+          description="Take the first step towards mastering Azure Administrator skills with this FREE, comprehensive study guide containing step-by-step instructions and resource links."
           imageSrc="/images/az104/laptop.png"
           imageAlt="Laptop with Azure setup"
           buttonPrimary={{
@@ -76,7 +77,7 @@ export default function AZ104Giveaway() {
           buttonUrl="#signup"
           items={[
             "Step-by-step study plan",
-            "Curated learning resources",
+            "Curated learning resources (linked)",
             "Practice exam strategies",
             "Exam day preparation tips",
           ]}
