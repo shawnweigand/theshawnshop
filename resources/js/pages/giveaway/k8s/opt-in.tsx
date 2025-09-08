@@ -80,7 +80,7 @@ export default function Giveaway() {
             "How to deploy your first application",
             "The Kubectl command line tool",
             "The difference in K8s vs Docker",
-            "What makes up K8s architecture",
+            "Nodes, pods, deployments, and services",
             "Next steps in your K8s journey",
           ]}
         />
