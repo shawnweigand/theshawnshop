@@ -42,7 +42,8 @@ export default function Giveaway() {
       {/* Hero Feature Section */}
       <section id="hero">
         <Feature1
-          title={`Feel <u>stuck</u> in your IT job?<br /><i style="color: #316DE6;">Supercharge</i> your 6-figure cloud skills <span style="color: #316DE6; font-weight: bold;"><u>now</u></span>.`}
+          title={`Want to learn k8s but not sure where to start?<br /><i style="color: #316DE6;">Accelerate</i> your skills <span style="color: #316DE6; font-weight: bold;"><u>now</u></span>.`}
+        //   title={`Feel <u>stuck</u> in your IT job?<br /><i style="color: #316DE6;">Supercharge</i> your 6-figure cloud skills <span style="color: #316DE6; font-weight: bold;"><u>now</u></span>.`}
           description="Take the first step towards mastering a 6-figure skillset with this free, hands-on video guide. Changes don't have to take for forever- start in just 13 minutes."
           imageSrc="/images/8stepstok8s/laptop.png"
           imageAlt="Laptop with Kubernetes setup"
