@@ -42,7 +42,7 @@ export default function Giveaway() {
       {/* Hero Feature Section */}
       <section id="hero">
         <Feature1
-          title={`Want to learn k8s but not sure where to start?<br /><i style="color: #316DE6;">Accelerate</i> your skills <span style="color: #316DE6; font-weight: bold;"><u>now</u></span>.`}
+          title={`Want to learn k8s but not sure where to start?<br />Deploy your first cluster in <i style="color: #316DE6;"><u>minutes</u>, not hours</i>.`}
         //   title={`Feel <u>stuck</u> in your IT job?<br /><i style="color: #316DE6;">Supercharge</i> your 6-figure cloud skills <span style="color: #316DE6; font-weight: bold;"><u>now</u></span>.`}
           description="Deploy and run your first Kubernetes application in just 13 minutes with this free, hands-on video guide."
           imageSrc="/images/8stepstok8s/laptop.png"
