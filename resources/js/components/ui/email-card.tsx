@@ -46,8 +46,11 @@ export default function EmailCard({
     }
 
     if (flash?.error) {
-      setError(flash.error);
-      setSuccess('');
+      // Don't display "Invalid subscriber" error in form - it's shown as toast only
+      if (flash.error !== 'Invalid subscriber. Please sign up using the form.') {
+        setError(flash.error);
+        setSuccess('');
+      }
     }
   }, [flash, mailGroup, redirectUrl]);
 
