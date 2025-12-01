@@ -25,6 +25,13 @@ issuer:
 pdb:
   minAvailable: 1
 
+horizon:
+  enabled: false
+  replicas: 1
+
+redis:
+  enabled: false
+
 config:
   APP_NAME: "The Shawn Shop"
   VITE_APP_NAME: "The Shawn Shop"
