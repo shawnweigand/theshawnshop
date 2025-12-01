@@ -95,15 +95,11 @@ class MailerLiteService
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $this->apiKey,
                 'Content-Type' => 'application/json',
-            ])->get($this->baseUrl . '/subscribers', [
-                'filter' => [
-                    'email' => $email
-                ]
-            ]);
+            ])->get($this->baseUrl . '/subscribers/' . $email);
 
             if ($response->successful()) {
                 $data = $response->json();
-                return $data['data'][0] ?? null;
+                return $data['data'] ?? null;
             }
 
             throw new Exception('Failed to get subscriber: ' . $response->body());
@@ -114,7 +110,7 @@ class MailerLiteService
                 'error' => $e->getMessage()
             ]);
 
-            throw $e;
+            return null;
         }
     }
 

@@ -94,11 +94,11 @@ export default function Resources() {
                         Practice Assessment for Exam AZ-104: Microsoft Azure Administrator by Microsoft
                       </a>
                     </li>
-                    {/* <li>
+                    <li>
                       <a href="https://www.examtopics.com/exams/microsoft/az-104/view/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                         Microsoft AZ-104 Actual Exam Questions by ExamTopics
                       </a>
-                    </li> */}
+                    </li>
                     <li>
                       <a href="https://tutorialsdojo.com/az-104-microsoft-azure-administrator-sample-exam-questions/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                         AZ-104 Microsoft Azure Administrator Sample Exam Questions by Tutorials Dojo
