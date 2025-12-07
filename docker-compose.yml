@@ -1,10 +1,10 @@
 services:
   app:
-    container_name: shawnshop_app
+    container_name: theshawnshop_app
     build:
       context: .
       dockerfile: Dockerfile
-    image: shawnshop
+    image: theshawnshop
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
@@ -14,73 +14,86 @@ services:
       IGNITION_LOCAL_SITES_PATH: "${PWD}"
       DOTNET_EnableWriteXorExecute: 0
       PHP_OPCACHE_ENABLE: 1
-      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 0
-      PHP_OPCACHE_REVALIDATE_FREQ: 0
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+      PHP_OPCACHE_REVALIDATE_FREQ: 2
       PHP_OPCACHE_MAX_ACCELERATED_FILES: 32531
       PHP_OPCACHE_INTERNED_STRINGS_BUFFER: 64
       PHP_OPCACHE_MEMORY_CONSUMPTION: 512
-      PHP_FPM_POOL_NAME: "shawnshop_php"
+      PHP_FPM_POOL_NAME: "theshawnshop_php"
     #   SSL_MODE: "mixed"
     #   SSL_PRIVATE_KEY_FILE: "/etc/ssl/private/sreportal.test-key.pem"
     #   SSL_CERTIFICATE_FILE: "/etc/ssl/private/sreportal.test.pem"
     volumes:
       - ".:/var/www/html/"
     #   - "./opt/certs/:/etc/ssl/private/"
-
     networks:
-      - shawnshop_app
+      - theshawnshop_app
     depends_on:
-      - vite
-      - pgsql
+      - mssql
       - redis
 
   vite:
-    container_name: shawnshop_vite
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: shawnshop
+    container_name: theshawnshop_vite
+    image: node:22-bookworm
     environment:
       NODE_ENV: local
-    working_dir: /var/www/html/
+    working_dir: /var/www/html
     command: npm run dev
     volumes:
-      - ".:/var/www/html/:cached"
+      - .:/var/www/html:cached
     ports:
       - "5173:5173"
     networks:
-      - shawnshop_app
-
-  pgsql:
-    container_name: shawnshop_pgsql
-    image: postgres:17
+      - theshawnshop_app
+    depends_on:
+      - app
+  mssql:
+    container_name: theshawnshop_mssql
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
     restart: always
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: shawnshop
-    volumes:
-      - shawnshop_pgsql_data:/var/lib/pgsql/data
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+      MSSQL_PID: "Developer"
     ports:
-      - "5432:5432"
+      - "1433:1433"
+    volumes:
+      - theshawnshop_mssql_data:/var/opt/mssql
     networks:
-      - shawnshop_app
+      - theshawnshop_app
 
   redis:
-    container_name: shawnshop_redis
+    container_name: theshawnshop_redis
     image: redis:latest
     restart: always
     ports:
       - "6379:6379"
     networks:
-      - shawnshop_app
+      - theshawnshop_app
     volumes:
-        - shawnshop_redis_data:/data
+        - theshawnshop_redis_data:/data
+
+#   horizon:
+#     container_name: gourmand_horizon
+#     image: gourmand
+#     working_dir: /var/www/html/
+#     command: php artisan horizon
+#     volumes:
+#       - ".:/var/www/html/"
+#     networks:
+#       - gourmand_app
+#     depends_on:
+#       # - pgsql
+#       - mssql
+#       - redis
+#       - app
+#     restart: unless-stopped
 
 networks:
-  shawnshop_app:
+  theshawnshop_app:
     driver: bridge
 
 volumes:
-  shawnshop_pgsql_data:
-  shawnshop_redis_data:
+  theshawnshop_mssql_data:
+  theshawnshop_redis_data:

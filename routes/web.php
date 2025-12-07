@@ -11,13 +11,17 @@ use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 //     return Inertia::render('welcome');
 // })->name('home');
 
-// Route::get('/', function () {
-//     return Inertia::render('landing-demo');
-// })->name('landing-demo');
-
 Route::get('/', function () {
-    return redirect()->route('giveaway.az104.opt-in');
+    return Inertia::render('home');
 })->name('home');
+
+Route::get('/hero-landing', function () {
+    return Inertia::render('hero-landing');
+})->name('hero-landing');
+
+// Route::get('/', function () {
+//     return redirect()->route('giveaway.az104.opt-in');
+// })->name('home');
 
 Route::post('/email/submit', EmailSubmissionController::class)->name('email.submit');
 
@@ -80,25 +84,25 @@ Route::get('/cookies', function () {
     return Inertia::render('cookies');
 })->name('cookies');
 
-// Route::middleware([
-//     'auth',
-//     ValidateSessionWithWorkOS::class,
-// ])->group(function () {
-//     Route::get('dashboard', function () {
-//         return Inertia::render('dashboard');
-//     })->name('dashboard');
-//
-//     Route::get('products', function () {
-//         return Inertia::render('products');
-//     })->name('products');
-//
-//     Route::resource('stripe-products', StripeProductController::class)->names('products');
-// });
+Route::middleware([
+    'auth',
+    ValidateSessionWithWorkOS::class,
+])->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
+
+    Route::get('products', function () {
+        return Inertia::render('products');
+    })->name('products');
+
+    Route::resource('stripe-products', StripeProductController::class)->names('products');
+});
 
 // For liveness probe
 Route::get('/healthz', function () {
     return response()->json(['status' => 'healthy', 'code' => 200], 200);
 });
 
-// require __DIR__.'/settings.php';
-// require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';

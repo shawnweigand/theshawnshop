@@ -59,6 +59,34 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-brand: 27 96% 61%;
+    --color-brand-foreground: 31 97% 72%;
+
+    --animate-appear: appear 0.5s ease-out forwards;
+    --animate-appear-zoom: appear-zoom 0.5s ease-out forwards;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes appear-zoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 :root {
@@ -147,5 +175,50 @@
         @apply bg-background text-foreground;
         background-color: #EFEFEF !important;
         scroll-behavior: smooth;
+    }
+
+    :root {
+        --brand: 27 96% 61%;
+        --brand-foreground: 31 97% 72%;
+    }
+
+    .dark {
+        --brand: 31 97% 72%;
+        --brand-foreground: 27 96% 61%;
+        --color-brand: 31 97% 72%;
+        --color-brand-foreground: 27 96% 61%;
+    }
+
+@layer utilities {
+    .delay-100 {
+        animation-delay: 100ms;
+    }
+
+    .delay-300 {
+        animation-delay: 300ms;
+    }
+
+    .delay-700 {
+        animation-delay: 700ms;
+    }
+
+    .delay-1000 {
+        animation-delay: 1000ms;
+    }
+
+    .max-w-container {
+        max-width: 1280px;
+    }
+
+    .fade-bottom {
+        position: relative;
+    }
+
+    .animate-appear {
+        animation: appear 0.5s ease-out forwards;
+    }
+
+    .animate-appear-zoom {
+        animation: appear-zoom 0.5s ease-out forwards;
     }
 }
