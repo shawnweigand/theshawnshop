@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState, useCallback } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState, useCallback, useMemo } from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -70,51 +70,56 @@ data "azurerm_resource_group" "rg" {
             ]
         },
         {
-            id: 'locals',
-            label: 'locals.tf',
-            description: 'This file is used to define the local variables for your Terraform project. Local variables are used to store values that are used throughout your Terraform code.',
-            links: [
-                { label: 'Terraform Local Variables', url: 'https://developer.hashicorp.com/terraform/language/values/locals' },
-                { label: 'Terraform Local Block', url: 'https://developer.hashicorp.com/terraform/language/block/locals' }
-            ],
-            code: [{
-                label: 'locals.tf', code: `locals {
-  key_vault_name = "akv\${var.project_name}\${var.environment}"
-}
-`
-            }]
-        },
-        {
             id: 'main',
             label: 'main.tf',
-            description: 'This file contains the main resources that are used to create the infrastructure for your project. Run a `terraform plan` to see the expected resources to be created.',
+            description: 'This file contains the main resources that are used to create the infrastructure for your project. This example demonstrates using a Terraform module to create an Azure Key Vault, which allows you to encapsulate and reuse infrastructure code. Run a `terraform plan` to see the expected resources to be created, `terraform apply` to create the resources, and `terraform destroy` to remove them.',
             links: [
-                { label: "Azure Key Vault", url: 'https://learn.microsoft.com/en-us/azure/key-vault/general/overview' },
-                { label: 'Terraform Resource: Azure Key Vault', url: 'https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault' },
+                { label: 'Terraform Resource: Azure Key Vault Secret', url: 'https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret' },
+                { label: 'Terraform Module Block', url: 'https://developer.hashicorp.com/terraform/language/block/module' },
+                { label: 'Terraform Module Sources', url: 'https://developer.hashicorp.com/terraform/language/modules/configuration' },
+                { label: 'Terraform Apply', url: 'https://developer.hashicorp.com/terraform/cli/commands/apply' },
+                { label: 'Terraform Destroy', url: 'https://developer.hashicorp.com/terraform/cli/commands/destroy' },
             ],
-            code: [{
-                label: 'main.tf', code: `resource "azurerm_key_vault" "akv" {
-  name                        = local.key_vault_name
-  location                    = data.azurerm_resource_group.rg.location
-  resource_group_name         = data.azurerm_resource_group.rg.name
-  enabled_for_disk_encryption = true
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
-  soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
+            code: [
+                {
+                label: 'main.tf', code: `module "akv" {
+  source = "./modules/akv"
 
-  sku_name = var.sku
+  rg_name         = var.rg_name
+  sku             = var.sku
+  project_name    = var.project_name
+  environment     = var.environment
+  cost_center     = var.cost_center
+  owner           = var.owner
+  business_unit   = var.business_unit
+  certificate_permissions = var.certificate_permissions
+  key_permissions = var.key_permissions
+  secret_permissions = var.secret_permissions
+  storage_permissions = var.storage_permissions
 
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
-
-    certificate_permissions = var.certificate_permissions
-    key_permissions = var.key_permissions
-    secret_permissions = var.secret_permissions
-    storage_permissions = var.storage_permissions
+  providers = {
+    azurerm = azurerm
   }
+
 }
-`           }]
+
+resource "azurerm_key_vault_secret" "secret_1" {
+  name         = "\${module.akv.akv.name}-sauce-1"
+  value        = "szechuan"
+  key_vault_id = module.akv.akv.id
+}
+
+resource "azurerm_key_vault_secret" "secret_2" {
+  depends_on = [ azurerm_key_vault_secret.secret_1 ]
+  name         = "\${module.akv.akv.name}-sauce-2"
+  value        = "mayo"
+  key_vault_id = module.akv.akv.id
+}
+`           },
+                { code: `terraform plan`, label: 'CLI' },
+                { code: `terraform apply`, label: 'CLI' },
+                { code: `terraform destroy`, label: 'CLI' },
+            ]
         },
         {
             id: 'variables',
@@ -131,6 +136,275 @@ data "azurerm_resource_group" "rg" {
 }
 
 variable "rg_name" {
+  description = "The name of the resource group"
+  type        = string
+
+  validation {
+    condition     = length(var.rg_name) > 0
+    error_message = "The resource group name must not be empty."
+  }
+
+  validation {
+    condition     = startswith(var.rg_name, "RG-")
+    error_message = "The resource group name must start with 'RG-'."
+  }
+}
+
+variable "project_name" {
+  description = "The name of the project, abbreviated"
+  type = string
+
+  validation {
+    condition = length(var.project_name) == 3
+    error_message = "The project name must be 3 characters long."
+  }
+
+  validation {
+    condition = lower(var.project_name) == var.project_name
+    error_message = "The project name must be in all lower case."
+  }
+}
+
+variable "environment" {
+  description = "The name of the environment"
+  type = string
+
+  validation {
+    condition = contains(["dev", "tst", "prd"], var.environment)
+    error_message = "The environment must be one of 'dev', 'tst', or 'prd'."
+  }
+}
+
+variable "sku" {
+    description = "The SKU for the resources"
+    type        = string
+    default     = "standard"
+
+    validation {
+        condition     = contains(["standard", "premium"], var.sku)
+        error_message = "The SKU must be either 'standard' or 'premium'."
+    }
+}
+
+variable "certificate_permissions" {
+  description = "List of key permissions for the key vault access policy"
+  type        = list(string)
+  validation {
+    condition     = alltrue([for p in var.certificate_permissions : contains(["Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"], p)])
+    error_message = "Certificate permissions must be one of 'Backup', 'Create', 'Delete', 'DeleteIssuers', 'Get', 'GetIssuers', 'Import', 'List', 'ListIssuers', 'ManageContacts', 'ManageIssuers', 'Purge', 'Recover', 'Restore', 'SetIssuers', 'Update'."
+  }
+
+  validation {
+    condition = length(var.certificate_permissions) == length(distinct(var.certificate_permissions))
+    error_message = "Certificate permissions must not contain duplicate values."
+  }
+}
+
+variable "key_permissions" {
+  description = "List of key permissions for the key vault access policy"
+  type        = list(string)
+
+  validation {
+    condition     = alltrue([for p in var.key_permissions : contains(["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"], p)])
+    error_message = "Key permissions must be one of 'Backup', 'Create', 'Decrypt', 'Delete', 'Encrypt', 'Get', 'Import', 'List', 'Purge', 'Recover', 'Restore', 'Sign', 'UnwrapKey', 'Update', 'Verify', 'WrapKey', 'Release', 'Rotate', 'GetRotationPolicy', or 'SetRotationPolicy'."
+  }
+
+  validation {
+    condition = length(var.key_permissions) == length(distinct(var.key_permissions))
+    error_message = "Key permissions must not contain duplicate values."
+  }
+}
+
+variable "secret_permissions" {
+  description = "List of secret permissions for the key vault access policy"
+  type        = list(string)
+
+  validation {
+    condition     = alltrue([for p in var.secret_permissions : contains(["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"], p)])
+    error_message = "Secret permissions must be one of 'Backup', 'Delete', 'Get', 'List', 'Purge', 'Recover', 'Restore', or 'Set'."
+  }
+
+  validation {
+    condition = length(var.secret_permissions) == length(distinct(var.secret_permissions))
+    error_message = "Secret permissions must not contain duplicate values."
+  }
+}
+
+variable "storage_permissions" {
+  description = "List of storage permissions for the key vault access policy"
+  type        = list(string)
+
+  validation {
+    condition     = alltrue([for p in var.storage_permissions : contains(["Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"], p)])
+    error_message = "Storage permissions must be one of 'Backup', 'Delete', 'DeleteSAS', 'Get', 'GetSAS', 'List', 'ListSAS', 'Purge', 'Recover', 'RegenerateKey', 'Restore', 'Set', 'SetSAS', or 'Update'."
+  }
+
+  validation {
+    condition = length(var.storage_permissions) == length(distinct(var.storage_permissions))
+    error_message = "Storage permissions must not contain duplicate values."
+  }
+}
+
+variable "cost_center" {
+  description = "The cost center tag value"
+  type        = string
+
+  validation {
+    condition     = length(var.cost_center) > 0 && length(trimspace(var.cost_center)) <= 6
+    error_message = "The cost center must be between 1 and 6 characters."
+  }
+
+  validation {
+    condition = can(regex("^[0-9]+$", var.cost_center))
+    error_message = "The cost center must only contain numeric characters."
+  }
+}
+
+variable "owner" {
+  description = "The owner of the application"
+  type        = string
+
+  validation {
+    condition     = strcontains(var.owner, "@")
+    error_message = "The owner must be a valid email address."
+  }
+}
+
+variable "business_unit" {
+  description = "The business unit tag value"
+  type        = string
+
+  validation {
+    condition     = contains(["Finance", "HR", "IT", "Marketing", "Sales", "Operations"], var.business_unit)
+    error_message = "The business unit must be one of 'Finance', 'HR', 'IT', 'Marketing', 'Sales', or 'Operations'."
+  }
+}`
+            }]
+        },
+        {
+            id: 'tfvars',
+            label: 'demo.tfvars',
+            description: 'This file is used to define the variables for your Terraform project. Variables are used to store values that are used throughout your Terraform code.',
+            links: [],
+            code: [{
+                label: 'demo.tfvars', code: `rg_name = "RG-Terraform-Explained"
+project_name = "dem"
+environment = "dev"
+sku = "standard"
+cost_center = "123456"
+owner = "shawn@theshawnshop.com"
+business_unit = "IT"
+certificate_permissions = [ "Get" ]
+key_permissions = [ "Get" ]
+secret_permissions = [ "Get", "List", "Set", "Delete" ]
+storage_permissions = [ "Get" ]`
+            }]
+        },
+        {
+            id: 'module-locals',
+            label: 'modules/akv/locals.tf',
+            description: 'This file is used to define the local variables for your Terraform project. Local variables are used to store values that are used throughout your Terraform code. Tags are added to Azure resources to enable cost management, resource organization, governance, and automation. They help identify resources by project, environment, cost center, owner, and business unit, making it easier to track costs, apply policies, and manage resources at scale.',
+            links: [
+                { label: 'Terraform Local Variables', url: 'https://developer.hashicorp.com/terraform/language/values/locals' },
+                { label: 'Terraform Local Block', url: 'https://developer.hashicorp.com/terraform/language/block/locals' },
+                { label: 'Azure Tagging Guide', url: 'https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources' },
+                { label: 'Azure Tagging Examples', url: 'https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging#tag-examplesModule?' }
+            ],
+            code: [{
+                label: 'locals.tf', code: `locals {
+    key_vault_name = "akv\${var.project_name}\${var.environment}"
+
+    tags = {
+        Project      = var.project_name
+        Environment  = var.environment
+        CostCenter   = var.cost_center
+        Owner        = var.owner
+        BusinessUnit = var.business_unit
+    }
+}`
+            }]
+        },
+        {
+            id: 'module-data',
+            label: 'modules/akv/data.tf',
+            description: 'This file defines the data sources for the Azure Key Vault module. Data sources are used to fetch information from existing Azure resources.',
+            links: [
+                { label: 'Terraform Data Source: Azure Resource Group', url: 'https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group' },
+                { label: 'Terraform Data Source: Azure Client Config', url: 'https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config' },
+            ],
+            code: [{
+                label: 'data.tf', code: `data "azurerm_client_config" "current" {}
+
+data "azurerm_resource_group" "rg" {
+  name = var.rg_name
+}`
+            }]
+        },
+        {
+            id: 'module-main',
+            label: 'modules/akv/main.tf',
+            description: 'This file contains the main resource definition for the Azure Key Vault module. It creates the Key Vault resource with access policies, tags, and lifecycle management.',
+            links: [
+                { label: "Azure Key Vault", url: 'https://learn.microsoft.com/en-us/azure/key-vault/general/overview' },
+                { label: 'Terraform Resource: Azure Key Vault', url: 'https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault' },
+                { label: 'Terraform Lifecycle Block', url: 'https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle' },
+            ],
+            code: [{
+                label: 'main.tf', code: `resource "azurerm_key_vault" "akv" {
+
+  name                        = local.key_vault_name
+  location                    = data.azurerm_resource_group.rg.location
+  resource_group_name         = data.azurerm_resource_group.rg.name
+  enabled_for_disk_encryption = true
+  tenant_id                   = data.azurerm_client_config.current.tenant_id
+  soft_delete_retention_days  = 7
+  purge_protection_enabled    = false
+  sku_name = var.sku
+
+  tags = local.tags
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+    certificate_permissions = var.certificate_permissions
+    key_permissions = var.key_permissions
+    secret_permissions = var.secret_permissions
+    storage_permissions = var.storage_permissions
+  }
+
+  lifecycle {
+    ignore_changes = [
+        tags
+    ]
+  }
+
+}`
+            }]
+        },
+        {
+            id: 'module-outputs',
+            label: 'modules/akv/outputs.tf',
+            description: 'This file defines the outputs for the Azure Key Vault module. Outputs expose information about the module\'s resources that can be accessed by the parent module or displayed in CLI output.',
+            links: [
+                { label: 'Terraform Outputs Block', url: 'https://developer.hashicorp.com/terraform/language/block/output' },
+            ],
+            code: [{
+                label: 'outputs.tf', code: `output "akv" {
+    value = azurerm_key_vault.akv
+}`
+            }]
+        },
+        {
+            id: 'module-variables',
+            label: 'modules/akv/variables.tf',
+            description: 'This file defines the variables for the Azure Key Vault module. These variables are used to configure the module and are passed in from the parent module.',
+            links: [
+                { label: 'Terraform Variables', url: 'https://developer.hashicorp.com/terraform/language/values/variables' },
+                { label: 'Terraform Variable Block', url: 'https://developer.hashicorp.com/terraform/language/block/variable' },
+            ],
+            code: [{
+                label: 'variables.tf', code: `variable "rg_name" {
   description = "The name of the resource group"
   type        = string
 
@@ -237,28 +511,47 @@ variable "storage_permissions" {
     condition = length(var.storage_permissions) == length(distinct(var.storage_permissions))
     error_message = "Storage permissions must not contain duplicate values."
   }
+}
+
+variable "cost_center" {
+  description = "The cost center tag value"
+  type        = string
+
+  validation {
+    condition     = length(var.cost_center) > 0 && length(trimspace(var.cost_center)) <= 6
+    error_message = "The cost center must be between 1 and 6 characters."
+  }
+
+  validation {
+    condition = can(regex("^[0-9]+$", var.cost_center))
+    error_message = "The cost center must only contain numeric characters."
+  }
+}
+
+variable "owner" {
+  description = "The owner of the application"
+  type        = string
+
+  validation {
+    condition     = strcontains(var.owner, "@")
+    error_message = "The owner must be a valid email address."
+  }
+}
+
+variable "business_unit" {
+  description = "The business unit tag value"
+  type        = string
+
+  validation {
+    condition     = contains(["Finance", "HR", "IT", "Marketing", "Sales", "Operations"], var.business_unit)
+    error_message = "The business unit must be one of 'Finance', 'HR', 'IT', 'Marketing', 'Sales', or 'Operations'."
+  }
 }`
             }]
         },
         {
-            id: 'tfvars',
-            label: 'demo.tfvars',
-            description: 'This file is used to define the variables for your Terraform project. Variables are used to store values that are used throughout your Terraform code.',
-            links: [],
-            code: [{
-                label: 'demo.tfvars', code: `rg_name = "RG-Terraform-Explained"
-project_name = "dem"
-environment = "dev"
-sku = "standard"
-certificate_permissions = [ "Get" ]
-key_permissions = [ "Get" ]
-secret_permissions = [ "Get" ]
-storage_permissions = [ "Get" ]`
-            }]
-        },
-        {
             id: 'test',
-            label: 'tests/validation.tftest.hcl',
+            label: 'modules/akv/tests/validation.tftest.hcl',
             description: 'This file is used to define the validation for your Terraform project. Validation is used to validate the values of the variables.',
             links: [
                 { label: 'Terraform Tests', url: 'https://developer.hashicorp.com/terraform/language/tests' },
@@ -289,7 +582,9 @@ variables {
     sku             = "standard"
     project_name    = "dem"
     environment     = "dev"
-    subscription_id = "00000000-0000-0000-0000-000000000000"
+    cost_center     = "123456"
+    owner           = "owner@example.com"
+    business_unit   = "IT"
     certificate_permissions = ["Get", "List", "Create"]
     key_permissions = ["Get", "List", "Create"]
     secret_permissions = ["Get", "List", "Set"]
@@ -344,7 +639,6 @@ run "validate_project_name_case" {
      ]
 }
 
-
 run "validate_environment" {
     command = plan
 
@@ -354,6 +648,54 @@ run "validate_environment" {
 
     expect_failures = [
         var.environment
+     ]
+}
+
+run "validate_cost_center_length" {
+    command = plan
+
+    variables {
+        cost_center = "1234567"
+    }
+
+    expect_failures = [
+        var.cost_center
+     ]
+}
+
+run "validate_cost_center_numeric" {
+    command = plan
+
+    variables {
+        cost_center = "ABCDEF"
+    }
+
+    expect_failures = [
+        var.cost_center
+     ]
+}
+
+run "validate_owner" {
+    command = plan
+
+    variables {
+        owner = "ownerexample.com"
+    }
+
+    expect_failures = [
+        var.owner
+     ]
+}
+
+run "validate_business_unit" {
+    command = plan
+
+    variables {
+        business_unit = "Technology"
+    }
+
+    expect_failures = [
+        var.business_unit
      ]
 }
 
@@ -407,6 +749,76 @@ run "validate_permissions_duplicates" {
             }]
         },
         {
+            id: 'assertion',
+            label: 'modules/akv/tests/assertion.tftest.hcl',
+            description: 'This file is used to define assertions for your Terraform project. Assertions are used to validate the state of your infrastructure after planning or applying, such as the logic of your local variables.',
+            links: [
+                { label: 'Terraform Tests', url: 'https://developer.hashicorp.com/terraform/language/tests' },
+                { label: 'Example Test', url: 'https://developer.hashicorp.com/terraform/tutorials/configuration-language/test' },
+                { label: 'Mock Providers and Data', url: 'https://developer.hashicorp.com/terraform/language/tests/mocking' },
+            ],
+            code: [
+                { code: `terraform test`, label: 'CLI' },
+                {
+                label: 'assertion.tftest.hcl', code: `mock_provider "azurerm" {
+    mock_data "azurerm_client_config" {
+        defaults = {
+            tenant_id = "11111111-1111-1111-1111-111111111111"
+            object_id = "22222222-2222-2222-2222-222222222222"
+        }
+    }
+
+    mock_data "azurem_resource_group" {
+      defaults = {
+        name = "RG-Example"
+        location = "East US"
+      }
+    }
+}
+
+variables {
+    rg_name         = "RG-Example"
+    sku             = "standard"
+    project_name    = "dem"
+    environment     = "dev"
+    cost_center     = "123456"
+    owner           = "owner@example.com"
+    business_unit   = "IT"
+    certificate_permissions = ["Get", "List", "Create"]
+    key_permissions = ["Get", "List", "Create"]
+    secret_permissions = ["Get", "List", "Set"]
+    storage_permissions = ["Get", "List", "Set"]
+}
+
+run "assert_akv_name" {
+    command = plan
+
+    assert {
+        condition = startswith(local.key_vault_name, "akv")
+        error_message = "Key Vault name must start with 'akv'"
+    }
+
+    assert {
+      condition = strcontains(local.key_vault_name, var.environment) && strcontains(local.key_vault_name, var.project_name)
+      error_message = "Key Vault name must contain the 'environment' and 'project name' variables'"
+    }
+}
+
+run "assert_tags" {
+    command = plan
+
+    assert {
+        condition = (contains(keys(local.tags), "Project") &&
+                    contains(keys(local.tags), "Environment") &&
+                    contains(keys(local.tags), "CostCenter") &&
+                    contains(keys(local.tags), "Owner") &&
+                    contains(keys(local.tags), "BusinessUnit"))
+        error_message = "Tags must include Project, Environment, CostCenter, Owner, and BusinessUnit"
+    }
+}`
+            }]
+        },
+        {
             id: 'gitignore',
             label: '.gitignore',
             description: 'Everything in this file will be ignored by Git to prevent committing your sensitive state files, downloaded providers, or modules to your code repository.',
@@ -418,6 +830,41 @@ run "validate_permissions_duplicates" {
     ]
 
     const [activeTab, setActiveTab] = useState(tabs[0]?.id ?? 'providers');
+    const [folderFilter, setFolderFilter] = useState<string>('/');
+
+    // Helper function to get folder path from tab label
+    const getTabFolder = (label: string): string => {
+        if (label.includes('/')) {
+            const parts = label.split('/');
+            if (parts.length > 1) {
+                // Return the folder path (everything except the last part)
+                return '/' + parts.slice(0, -1).join('/');
+            }
+        }
+        return '/';
+    };
+
+    // Filter tabs based on selected folder
+    const filteredTabs = useMemo(() => {
+        return tabs.filter(tab => {
+            const tabFolder = getTabFolder(tab.label);
+            // For root folder, match exactly. For module folder, include subdirectories
+            if (folderFilter === '/') {
+                return tabFolder === '/';
+            } else {
+                // Include files in the folder and all subdirectories
+                return tabFolder === folderFilter || tabFolder.startsWith(folderFilter + '/');
+            }
+        });
+    }, [tabs, folderFilter]);
+
+    // Update active tab when filter changes if current tab is not in filtered list
+    useEffect(() => {
+        const currentTabInFilter = filteredTabs.some(tab => tab.id === activeTab);
+        if (!currentTabInFilter && filteredTabs.length > 0) {
+            setActiveTab(filteredTabs[0].id);
+        }
+    }, [folderFilter, activeTab, filteredTabs]);
 
     const handleCopy = useCallback(async (code: string, tabId: string, blockIndex?: number) => {
         try {
@@ -449,25 +896,64 @@ run "validate_permissions_duplicates" {
     return (
         <div className="w-full max-w-6xl mx-auto px-6 py-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full gap-0">
+                <div className="mb-4">
+                    <div className="flex gap-2">
+                        <Button
+                            type="button"
+                            variant={folderFilter === '/' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => setFolderFilter('/')}
+                            className="text-sm"
+                        >
+                            /
+                        </Button>
+                        <Button
+                            type="button"
+                            variant={folderFilter === '/modules/akv' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => setFolderFilter('/modules/akv')}
+                            className="text-sm"
+                        >
+                            /modules/akv
+                        </Button>
+                    </div>
+                </div>
                 <div>
                     <TabsList className="inline-flex h-10 items-center justify-start rounded-none border-0 bg-transparent p-0 mb-0">
-                        {tabs.map((tab) => (
-                            <TabsTrigger
-                                key={tab.id}
-                                value={tab.id}
-                                className={cn(
-                                    "rounded-t-lg rounded-b-none border-t border-x border-b-0 border-border bg-muted/50 px-4 py-2 text-sm font-medium text-muted-foreground !shadow-none transition-all",
-                                    "data-[state=active]:border-t data-[state=active]:border-x data-[state=active]:border-b-0 data-[state=active]:border-b-transparent data-[state=active]:border-border data-[state=active]:bg-card data-[state=active]:text-foreground",
-                                    "hover:bg-muted/80"
-                                )}
-                            >
-                                {tab.label}
-                            </TabsTrigger>
-                        ))}
+                        {filteredTabs.map((tab) => {
+                            // Extract filename and check if it's in tests directory
+                            let displayName: string;
+                            if (tab.label.includes('/')) {
+                                const parts = tab.label.split('/');
+                                const fileName = parts.pop() || tab.label;
+                                // Check if the second-to-last part is "tests"
+                                if (parts.length > 0 && parts[parts.length - 1] === 'tests') {
+                                    displayName = `tests/${fileName}`;
+                                } else {
+                                    displayName = fileName;
+                                }
+                            } else {
+                                displayName = tab.label;
+                            }
+
+                            return (
+                                <TabsTrigger
+                                    key={tab.id}
+                                    value={tab.id}
+                                    className={cn(
+                                        "rounded-t-lg rounded-b-none border-t border-x border-b-0 border-border bg-muted/50 px-4 py-2 text-sm font-medium text-muted-foreground !shadow-none transition-all",
+                                        "data-[state=active]:border-t data-[state=active]:border-x data-[state=active]:border-b-0 data-[state=active]:border-b-transparent data-[state=active]:border-border data-[state=active]:bg-card data-[state=active]:text-foreground",
+                                        "hover:bg-muted/80"
+                                    )}
+                                >
+                                    {displayName}
+                                </TabsTrigger>
+                            );
+                        })}
                     </TabsList>
                 </div>
 
-                {tabs.map((tab) => {
+                {filteredTabs.map((tab) => {
                     // Normalize code blocks to CodeBlock format
                     let codeBlocks: CodeBlock[];
                     if (typeof tab.code === 'string') {
