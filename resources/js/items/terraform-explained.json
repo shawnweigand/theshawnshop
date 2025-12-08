@@ -1,0 +1,12 @@
+{
+  "id": "terraform-explained",
+  "title": "Terraform Explained Guided Project",
+  "description": "Learn the basics of Terraform with this hands-on tutorial.",
+  "difficulty": "Beginner",
+  "duration": "60 min",
+  "tags": ["terraform", "iac", "project"],
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Terraform_Logo.svg/960px-Terraform_Logo.svg.png",
+  "status": "active",
+  "link": "terraform-explained",
+  "price": "free"
+}

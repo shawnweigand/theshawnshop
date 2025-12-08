@@ -13,6 +13,10 @@ import {
   Rocket,
   Menu,
   X,
+  Code,
+  Terminal,
+  Cloud,
+  Server,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { usePage, Link } from "@inertiajs/react"
@@ -53,50 +57,50 @@ export function HomeLanding() {
 
   const features = [
     {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Lightning Fast",
-      description: "Built for speed and performance, delivering results in milliseconds.",
+      icon: <Terminal className="h-6 w-6" />,
+      title: "Real-world Scenarios",
+      description: "Learn by doing with projects that mimic actual production environments and challenges.",
     },
     {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Secure & Reliable",
-      description: "Enterprise-grade security to keep your data safe and protected.",
+      icon: <Code className="h-6 w-6" />,
+      title: "Infrastructure as Code",
+      description: "Master Terraform, Ansible, and modern IaC practices used by top tech companies.",
     },
     {
-      icon: <Globe className="h-6 w-6" />,
-      title: "Global Scale",
-      description: "Reach users worldwide with our distributed infrastructure.",
+      icon: <Cloud className="h-6 w-6" />,
+      title: "Cloud Native",
+      description: "Deep dive into Kubernetes, Docker, and microservices architecture.",
     },
     {
       icon: <Users className="h-6 w-6" />,
-      title: "Team Collaboration",
-      description: "Work together seamlessly with powerful collaboration tools.",
+      title: "Community Driven",
+      description: "Join a community of cloud engineers learning, sharing, and growing together.",
     },
     {
       icon: <Rocket className="h-6 w-6" />,
-      title: "Easy Integration",
-      description: "Get started in minutes with our simple API and documentation.",
+      title: "Career Growth",
+      description: "Build a portfolio of hands-on projects to showcase your skills to future employers.",
     },
   ]
 
-  const testimonials = [
+  const resources = [
     {
-      name: "Sarah Johnson",
-      role: "CEO, TechStart",
-      content: "This platform transformed how we work. The results speak for themselves.",
-      rating: 5,
+      title: "Kubernetes Roadmap",
+      description: "A comprehensive guide to mastering Kubernetes, from basics to advanced cluster management.",
+      link: route("giveaway.k8s.opt-in"),
+      tag: "Roadmap",
     },
     {
-      name: "Michael Chen",
-      role: "CTO, InnovateCo",
-      content: "Best decision we made. Our productivity increased by 300%.",
-      rating: 5,
+      title: "AZ-104 Study Guide",
+      description: "Prepare for the Microsoft Azure Administrator certification with this focused study guide.",
+      link: route("giveaway.az104.opt-in"),
+      tag: "Certification",
     },
     {
-      name: "Emily Rodriguez",
-      role: "Founder, GrowthLab",
-      content: "Incredible value and support. Couldn't be happier with our choice.",
-      rating: 5,
+      title: "Terraform Explained",
+      description: "Understand Infrastructure as Code with Terraform through clear explanations and examples.",
+      link: route("giveaway.tf-explained.opt-in"),
+      tag: "IaC",
     },
   ]
 
@@ -122,10 +126,10 @@ export function HomeLanding() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Features
+              Why Learn Here
             </a>
-            <a href="#testimonials" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Testimonials
+            <a href="#resources" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Resources
             </a>
             {auth?.user ? (
               <Button asChild>
@@ -166,14 +170,14 @@ export function HomeLanding() {
                 className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Features
+                Why Learn Here
               </a>
               <a
-                href="#testimonials"
+                href="#resources"
                 className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Testimonials
+                Resources
               </a>
               {auth?.user ? (
                 <Button asChild className="w-full">
@@ -202,31 +206,31 @@ export function HomeLanding() {
               variants={fadeInUp}
               className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
             >
-              Build Something
+              Master Cloud Engineering with
               <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 {" "}
-                Amazing
+                Hands-on Projects
               </span>
             </motion.h1>
             <motion.p
               variants={fadeInUp}
               className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl"
             >
-              The all-in-one platform that helps you grow faster, work smarter, and
-              achieve more. Join thousands of teams already using our platform.
+              Learn Kubernetes, Terraform, Azure, and more through real-world scenarios and step-by-step tutorials.
+              Bridge the gap between theory and practice.
             </motion.p>
             <motion.div
               variants={fadeInUp}
               className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
             >
               <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-                <a href="#features">
-                  Get Started
+                <a href="#resources">
+                  Start Learning
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-6 h-auto" asChild>
-                <a href="#testimonials">Learn More</a>
+                <a href="#features">Explore Path</a>
               </Button>
             </motion.div>
           </motion.div>
@@ -247,7 +251,7 @@ export function HomeLanding() {
               Everything you need to succeed
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Powerful features designed to help you grow your business and delight your customers.
+              Comprehensive resources designed to help you master cloud engineering.
             </p>
           </motion.div>
 
@@ -275,8 +279,8 @@ export function HomeLanding() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 md:py-32">
+      {/* Resources Section */}
+      <section id="resources" className="py-20 md:py-32">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -286,10 +290,10 @@ export function HomeLanding() {
             className="mx-auto max-w-2xl text-center mb-16"
           >
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              Loved by teams worldwide
+              Featured Learning Resources
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              See what our customers have to say about their experience.
+              Start your journey with these popular guides and roadmaps.
             </p>
           </motion.div>
 
@@ -300,22 +304,22 @@ export function HomeLanding() {
             viewport={{ once: true }}
             className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3"
           >
-            {testimonials.map((testimonial, index) => (
+            {resources.map((resource, index) => (
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="rounded-lg border bg-card p-6 shadow-sm"
+                className="rounded-lg border bg-card p-6 shadow-sm flex flex-col justify-between"
               >
-                <div className="mb-4 flex gap-1">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="mb-4 text-muted-foreground">"{testimonial.content}"</p>
                 <div>
-                  <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <div className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                    {resource.tag}
+                  </div>
+                  <h3 className="mb-2 text-xl font-bold">{resource.title}</h3>
+                  <p className="mb-4 text-muted-foreground">{resource.description}</p>
                 </div>
+                <Button asChild variant="outline" className="w-full">
+                  <Link href={resource.link}>Access Now</Link>
+                </Button>
               </motion.div>
             ))}
           </motion.div>
@@ -333,10 +337,10 @@ export function HomeLanding() {
             className="mx-auto max-w-3xl text-center"
           >
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              Ready to get started?
+              Ready to launch your cloud career?
             </h2>
             <p className="mt-4 text-lg opacity-90">
-              Join thousands of teams already using our platform to grow their business.
+              Join thousands of engineers mastering cloud technologies through hands-on practice.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button
@@ -345,18 +349,17 @@ export function HomeLanding() {
                 className="text-lg px-8 py-6 h-auto"
                 asChild
               >
-                <a href="#features">
-                  Start Free Trial
+                <a href="#resources">
+                  Start Learning
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
               <Button
                 size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6 h-auto border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-lg px-8 py-6 h-auto bg-slate-900 text-white hover:bg-slate-800 border-none"
                 asChild
               >
-                <a href="#testimonials">Contact Sales</a>
+                <a href="#features">Explore Now</a>
               </Button>
             </div>
           </motion.div>

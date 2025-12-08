@@ -1,0 +1,12 @@
+{
+  "id": "8-steps-to-k8s",
+  "title": "8 Steps to K8s",
+  "description": "Learn how to create and run your first Kubernetes cluster application in just 13 minutes!",
+  "difficulty": "Beginner",
+  "duration": "13 min",
+  "tags": ["kubernetes", "project"],
+  "image": "/images/8stepstok8s/laptop.png",
+  "status": "active",
+  "link": "8-steps-to-k8s",
+  "price": "free"
+}

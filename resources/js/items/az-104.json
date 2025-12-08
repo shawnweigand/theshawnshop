@@ -1,0 +1,12 @@
+{
+  "id": "az-104",
+  "title": "Azure Certification Prep",
+  "description": "Comprehensive guide that prepared me to pass the Microsoft Azure Administrator (AZ-104) certification exam on the first try.",
+  "difficulty": "Intermediate",
+  "duration": "10.5 hours",
+  "tags": ["azure", "certification"],
+  "image": "/images/az104/laptop.png",
+  "status": "active",
+  "link": "az-104",
+  "price": "free"
+}

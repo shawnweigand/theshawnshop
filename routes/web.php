@@ -92,6 +92,26 @@ Route::middleware([
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+    Route::get('k8s-roadmap', function () {
+        return Inertia::render('items/k8s-roadmap');
+    })->name('k8s-roadmap');
+
+    Route::get('az-104', function () {
+        return Inertia::render('items/az-104');
+    })->name('az-104');
+
+    Route::get('8-steps-to-k8s', function () {
+        return Inertia::render('items/8-steps-to-k8s');
+    })->name('8-steps-to-k8s');
+
+    Route::get('terraform-explained', function () {
+        return Inertia::render('items/terraform-explained');
+    })->name('terraform-explained');
+
+    Route::get('microservices-docker', function () {
+        return Inertia::render('items/microservices-docker');
+    })->name('microservices-docker');
+
     Route::get('products', function () {
         return Inertia::render('products');
     })->name('products');

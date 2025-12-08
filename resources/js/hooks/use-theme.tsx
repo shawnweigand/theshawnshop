@@ -7,14 +7,14 @@ export function useTheme() {
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    const isDark = appearance === 'dark' || 
+    const isDark = appearance === 'dark' ||
       (appearance === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    
+
     setResolvedTheme(isDark ? 'dark' : 'light');
   }, [appearance]);
 
   return {
-    theme: appearance,
+    theme: 'light', //appearance,
     setTheme: () => {}, // Not used in hero-section
     resolvedTheme,
   };
