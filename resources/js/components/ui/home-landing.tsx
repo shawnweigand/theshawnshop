@@ -17,6 +17,7 @@ import {
   Terminal,
   Cloud,
   Server,
+  BookOpen,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { usePage, Link } from "@inertiajs/react"
@@ -81,26 +82,34 @@ export function HomeLanding() {
       title: "Career Growth",
       description: "Build a portfolio of hands-on projects to showcase your skills to future employers.",
     },
+    {
+      icon: <BookOpen className="h-6 w-6" />,
+      title: "Step-by-Step Guides",
+      description: "Follow detailed tutorials and guides that break down complex concepts into manageable steps.",
+    },
   ]
 
   const resources = [
     {
       title: "Kubernetes Roadmap",
       description: "A comprehensive guide to mastering Kubernetes, from basics to advanced cluster management.",
-      link: route("giveaway.k8s.opt-in"),
-      tag: "Roadmap",
+      link: route("k8s-roadmap"),
+      tag: "Guide",
+      image: "/images/k8s-roadmap/roadmap1.png",
     },
     {
-      title: "AZ-104 Study Guide",
+      title: "Azure Exam Study Guide",
       description: "Prepare for the Microsoft Azure Administrator certification with this focused study guide.",
-      link: route("giveaway.az104.opt-in"),
+      link: route("az-104"),
       tag: "Certification",
+      image: "/images/az104/laptop.png",
     },
     {
       title: "Terraform Explained",
       description: "Understand Infrastructure as Code with Terraform through clear explanations and examples.",
-      link: route("giveaway.tf-explained.opt-in"),
-      tag: "IaC",
+      link: route("terraform-explained"),
+      tag: "Project",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Terraform_Logo.svg/960px-Terraform_Logo.svg.png",
     },
   ]
 
@@ -206,7 +215,7 @@ export function HomeLanding() {
               variants={fadeInUp}
               className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
             >
-              Master Cloud Engineering with
+              Master the Cloud with
               <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 {" "}
                 Hands-on Projects
@@ -224,10 +233,10 @@ export function HomeLanding() {
               className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
             >
               <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-                <a href="#resources">
+                <Link href={route("login")}>
                   Start Learning
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-6 h-auto" asChild>
                 <a href="#features">Explore Path</a>
@@ -308,18 +317,29 @@ export function HomeLanding() {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="rounded-lg border bg-card p-6 shadow-sm flex flex-col justify-between"
+                className="rounded-lg border bg-card shadow-sm flex flex-col justify-between overflow-hidden"
               >
-                <div>
-                  <div className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                    {resource.tag}
+                {resource.image && (
+                  <div className="relative w-full h-48 bg-muted flex-shrink-0 flex items-center justify-center">
+                    <img
+                      src={resource.image}
+                      alt={resource.title}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
-                  <h3 className="mb-2 text-xl font-bold">{resource.title}</h3>
-                  <p className="mb-4 text-muted-foreground">{resource.description}</p>
+                )}
+                <div className="p-6 flex flex-col flex-1">
+                  <div>
+                    <div className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                      {resource.tag}
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold">{resource.title}</h3>
+                    <p className="mb-4 text-muted-foreground">{resource.description}</p>
+                  </div>
+                  <Button asChild variant="outline" className="w-full mt-auto">
+                    <Link href={resource.link}>Access Now</Link>
+                  </Button>
                 </div>
-                <Button asChild variant="outline" className="w-full">
-                  <Link href={resource.link}>Access Now</Link>
-                </Button>
               </motion.div>
             ))}
           </motion.div>
@@ -349,10 +369,10 @@ export function HomeLanding() {
                 className="text-lg px-8 py-6 h-auto"
                 asChild
               >
-                <a href="#resources">
+                <Link href={route("login")}>
                   Start Learning
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </Link>
               </Button>
               <Button
                 size="lg"

@@ -33,12 +33,14 @@ Route::get('/giveaway/k8s/thanks', function () {
     return Inertia::render('giveaway/k8s/thanks');
 })->name('giveaway.k8s.thanks');
 Route::get('/giveaway/k8s/550e8400-e29b-41d4-a716-446655440000', function () {
-    return Inertia::render('giveaway/k8s/page');
+    return redirect()->route('8-steps-to-k8s');
+    // return Inertia::render('giveaway/k8s/page');
 })->name('giveaway.k8s.page');
 
 // K8s Roadmap
 Route::get('/giveaway/k8s/E9D45393-36AA-4BE2-9C27-38CF9DF14402', function () {
-    return Inertia::render('giveaway/k8s/roadmap');
+    return redirect()->route('k8s-roadmap');
+    // return Inertia::render('giveaway/k8s/roadmap');
 })->name('giveaway.k8s.roadmap');
 
 // AZ-104 Giveaway
@@ -49,7 +51,8 @@ Route::get('/giveaway/az104/thanks', function () {
     return Inertia::render('giveaway/az104/thanks');
 })->name('giveaway.az104.thanks');
 Route::get('/giveaway/az104/ACED2B2F-8237-4BCB-BCB3-D74AF35F1559', function () {
-    return Inertia::render('giveaway/az104/page');
+    return redirect()->route('az-104');
+    // return Inertia::render('giveaway/az104/page');
 })->name('giveaway.az104.page');
 
 // Terraform Explained Giveaway
@@ -60,6 +63,7 @@ Route::get('/giveaway/explained/thanks', function () {
     return Inertia::render('giveaway/tf-explained/thanks');
 })->name('giveaway.tf-explained.thanks');
 Route::get('/giveaway/explained/{email}', function ($email) {
+    return redirect()->route('terraform-explained');
     $mailerlite = new MailerLiteService();
     $subscriber = $mailerlite->getSubscriber($email);
     // check if the subscriber groups contains one that has the target group id
