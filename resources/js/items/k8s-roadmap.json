@@ -1,0 +1,12 @@
+{
+  "id": "k8s-roadmap",
+  "title": "30-day Kubernetes Roadmap",
+  "description": "This roadmap will outline the path from beginner to expert in Kubernetes.",
+  "difficulty": "Beginner",
+  "duration": "30 days",
+  "tags": ["kubernetes", "guide"],
+  "image": "/images/k8s-roadmap/roadmap1.png",
+  "status": "active",
+  "link": "k8s-roadmap",
+  "price": "free"
+}

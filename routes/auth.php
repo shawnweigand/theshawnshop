@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Services\MailerLite\CreateSubscriber;
 use Illuminate\Support\Facades\Route;
 use Laravel\WorkOS\Http\Requests\AuthKitAuthenticationRequest;
 use Laravel\WorkOS\Http\Requests\AuthKitLoginRequest;
@@ -10,7 +11,17 @@ Route::get('login', function (AuthKitLoginRequest $request) {
 })->middleware(['guest'])->name('login');
 
 Route::get('authenticate', function (AuthKitAuthenticationRequest $request) {
-    return tap(to_route('dashboard'), fn () => $request->authenticate());
+    $authenticate = function () use ($request) {
+        $user = $request->authenticate();
+        if ($user->wasRecentlyCreated) {
+            $groupId = config('services.mailerlite.group_ids.giveaway.theshawnshop');
+            if ($groupId) {
+                CreateSubscriber::run($user->email, ['name' => $user->name], [(int) $groupId]);
+            }
+        }
+    };
+
+    return tap(to_route('dashboard'), $authenticate);
 })->middleware(['guest']);
 
 Route::post('logout', function (AuthKitLogoutRequest $request) {
