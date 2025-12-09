@@ -18,11 +18,17 @@ import {
   Cloud,
   Server,
   BookOpen,
+  Calendar,
+  FileText,
+  Clock,
+  Instagram,
+  Youtube,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { usePage, Link } from "@inertiajs/react"
 import { route } from "ziggy-js"
 import { SharedData } from "@/types"
+import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -110,6 +116,69 @@ export function HomeLanding() {
       link: route("terraform-explained"),
       tag: "Project",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Terraform_Logo.svg/960px-Terraform_Logo.svg.png",
+    },
+  ]
+
+  const timelineData = [
+    {
+      id: 1,
+      title: "Infrastructure as Code",
+      date: "Day 1",
+      content: "Master Infrastructure as Code with Terraform.",
+      category: "IaC",
+      icon: Code,
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Cib-terraform_%28CoreUI_Icons_v1.0.0%29.svg/250px-Cib-terraform_%28CoreUI_Icons_v1.0.0%29.svg.png",
+      relatedIds: [2],
+      status: "completed" as const,
+      energy: 100,
+    },
+    {
+      id: 2,
+      title: "Kubernetes",
+      date: "Week 1",
+      content: "Learn Kubernetes fundamentals and orchestration.",
+      category: "Orchestration",
+      icon: Terminal,
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/210px-Kubernetes_logo_without_workmark.svg.png",
+      relatedIds: [1, 3],
+      status: "completed" as const,
+      energy: 90,
+    },
+    {
+      id: 3,
+      title: "Public Cloud",
+      date: "Week 2-3",
+      content: "Master Microsoft Azure cloud platform and services.",
+      category: "Cloud",
+      icon: Cloud,
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Microsoft_Azure.svg/210px-Microsoft_Azure.svg.png",
+      relatedIds: [2, 4],
+      status: "in-progress" as const,
+      energy: 75,
+    },
+    {
+      id: 4,
+      title: "Containers",
+      date: "Week 4",
+      content: "Master containerization with Docker.",
+      category: "Containers",
+      icon: Code,
+      logo: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Docker_%28container_engine%29_logo_%28cropped%29.png?20230309095311",
+      relatedIds: [3, 5],
+      status: "pending" as const,
+      energy: 50,
+    },
+    {
+      id: 5,
+      title: "DevOps",
+      date: "Week 5-6",
+      content: "Version control and collaboration with GitHub.",
+      category: "DevOps",
+      icon: FileText,
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/210px-Octicons-mark-github.svg.png",
+      relatedIds: [4],
+      status: "pending" as const,
+      energy: 30,
     },
   ]
 
@@ -242,12 +311,74 @@ export function HomeLanding() {
                 <a href="#features">Explore Path</a>
               </Button>
             </motion.div>
+            <motion.div
+              variants={fadeInUp}
+              className="mt-6 flex items-center justify-center gap-4"
+            >
+              <a
+                href="https://www.tiktok.com/@theshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="TikTok"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                </svg>
+              </a>
+              <a
+                href="https://instagram.com/attheshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-6 h-6" />
+              </a>
+              <a
+                href="https://www.youtube.com/@theshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube className="w-6 h-6" />
+              </a>
+              <a
+                href="https://www.x.com/theshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="X (formerly Twitter)"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
+      {/* Learning Timeline Section */}
+      <section className="relative overflow-hidden -mt-10 md:-mt-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <RadialOrbitalTimeline timelineData={timelineData} />
+        </div>
+      </section>
+
       {/* Features Section */}
-      <section id="features" className="py-20 md:py-32 bg-muted/50">
+      <section id="features" className="mt-20 py-20 md:py-32 bg-muted/50">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -395,6 +526,58 @@ export function HomeLanding() {
                 <Rocket className="h-3 w-3 text-primary-foreground" />
               </div>
               <span className="font-semibold">The Shawn Shop</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://www.tiktok.com/@theshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="TikTok"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                </svg>
+              </a>
+              <a
+                href="https://instagram.com/attheshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.youtube.com/@theshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.x.com/theshawnshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="X (formerly Twitter)"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
             </div>
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} The Shawn Shop. All rights reserved.
