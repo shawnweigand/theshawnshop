@@ -30,16 +30,24 @@ horizon:
   replicas: 1
 
 redis:
-  enabled: false
+  enabled: true
 
 config:
   APP_NAME: "The Shawn Shop"
   VITE_APP_NAME: "The Shawn Shop"
   APP_URL: https://theshawnshop.com
   APP_ENV: production
-  # DB_CONNECTION: mysql
-  SESSION_DRIVER: cookie
+  DB_CONNECTION: sqlsrv
+  DB_PORT: 1433
+  DB_TRUST_SERVER_CERTIFICATE: true
   MAIL_MAILER: mailgun
   MAILGUN_DOMAIN: theshawnshop.com
   WORKOS_REDIRECT_URL: https://theshawnshop.com/authenticate
+  SESSION_DRIVER: redis
+  QUEUE_CONNECTION: redis
+  CACHE_STORE: redis
+  REDIS_CLIENT: phpredis
+  REDIS_HOST: theshawnshop-redis
+  REDIS_PASSWORD: null
+  REDIS_PORT: 6379
 
