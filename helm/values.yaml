@@ -4,7 +4,7 @@ deployment:
     repository: shawnweigand/prod
     tag: shawnshop
   probes:
-    enabled: true
+    enabled: false
   registry:
     imagePullSecret: docker-registry-secret
 
