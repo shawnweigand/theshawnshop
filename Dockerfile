@@ -17,6 +17,11 @@ RUN composer install --no-dev --no-scripts --no-progress --prefer-dist --optimiz
 FROM node:22-bookworm AS frontend
 
 WORKDIR /app
+
+# Copy composer vendor directory from Stage 1
+COPY --from=vendor /app/vendor ./vendor
+
+# Copy only package files first
 COPY package.json package-lock.json ./
 
 RUN npm ci
