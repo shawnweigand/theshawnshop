@@ -31,5 +31,6 @@ export default defineConfig({
             '@': resolve(__dirname, 'resources/js'),
             'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
         },
+        conditions: ['import', 'module', 'browser', 'default'],
     },
 });
