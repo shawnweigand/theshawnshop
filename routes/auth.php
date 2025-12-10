@@ -14,7 +14,7 @@ Route::get('authenticate', function (AuthKitAuthenticationRequest $request) {
     $authenticate = function () use ($request) {
         $user = $request->authenticate();
         if ($user->wasRecentlyCreated) {
-            $groupId = config('services.mailerlite.group_ids.giveaway.theshawnshop');
+            $groupId = config('services.mailerlite.group_ids.theshawnshop');
             if ($groupId) {
                 CreateSubscriber::run($user->email, ['name' => $user->name], [(int) $groupId]);
             }

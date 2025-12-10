@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailSubmissionController;
 use App\Http\Controllers\StripeProductController;
 use App\Services\MailerLiteService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
@@ -92,6 +93,38 @@ Route::middleware([
     'auth',
     ValidateSessionWithWorkOS::class,
 ])->group(function () {
+    Route::post('devops-deploy/join-waitlist', function () {
+        $user = request()->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        try {
+            $mailerLiteService = new MailerLiteService();
+            $groupId = config('services.mailerlite.group_ids.waitlist.devops-deploy');
+
+            if (!$groupId) {
+                return response()->json(['error' => 'Waitlist group not configured'], 500);
+            }
+
+            $result = $mailerLiteService->createSubscriber(
+                email: $user->email,
+                fields: ['name' => $user->name],
+                groups: [(int) $groupId]
+            );
+
+            return response()->json(['success' => true, 'message' => 'Successfully joined waitlist']);
+        } catch (\Exception $e) {
+            Log::error('Failed to join DevOps Deploy waitlist', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json(['error' => 'Failed to join waitlist. Please try again.'], 500);
+        }
+    })->name('devops-deploy.join-waitlist');
+
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
@@ -112,9 +145,13 @@ Route::middleware([
         return Inertia::render('items/terraform-explained');
     })->name('terraform-explained');
 
-    Route::get('microservices-docker', function () {
-        return Inertia::render('items/microservices-docker');
-    })->name('microservices-docker');
+    Route::get('containers-docker', function () {
+        return Inertia::render('items/containers-docker');
+    })->name('containers-docker');
+
+    Route::get('devops-deploy', function () {
+        return Inertia::render('items/devops-deploy');
+    })->name('devops-deploy');
 
     Route::get('products', function () {
         return Inertia::render('products');

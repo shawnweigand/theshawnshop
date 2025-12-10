@@ -1,0 +1,13 @@
+{
+  "id": "devops-deploy",
+  "title": "DevOps Deploy",
+  "description": "Break into the world of DevOps with this comprehensive, 4-week program.",
+  "difficulty": "Beginner",
+  "duration": "4 weeks",
+  "tags": ["devops", "program"],
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Devops-toolchain.svg/640px-Devops-toolchain.svg.png",
+  "status": "active",
+  "link": "devops-deploy",
+  "price": "waitlist"
+}
+
