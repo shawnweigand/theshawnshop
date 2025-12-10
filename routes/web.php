@@ -161,6 +161,10 @@ Route::middleware([
         return Inertia::render('items/terraform-commands');
     })->name('terraform-commands');
 
+    Route::get('kubectl-commands', function () {
+        return Inertia::render('items/kubectl-commands');
+    })->name('kubectl-commands');
+
     Route::get('products', function () {
         return Inertia::render('products');
     })->name('products');

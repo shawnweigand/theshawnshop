@@ -5,7 +5,7 @@
   "difficulty": "Beginner",
   "duration": "10 min",
   "tags": ["git", "guide", "version-control"],
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Git_format.png/640px-Git_format.png",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Git_icon.svg/640px-Git_icon.svg.png",
   "status": "active",
   "link": "git-commands",
   "price": "free"

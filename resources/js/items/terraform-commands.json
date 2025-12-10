@@ -5,7 +5,7 @@
   "difficulty": "Beginner",
   "duration": "10 min",
   "tags": ["terraform", "guide", "iac", "infrastructure"],
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Cib-terraform_%28CoreUI_Icons_v1.0.0%29.svg/640px-Cib-terraform_%28CoreUI_Icons_v1.0.0%29.svg.png",
+  "image": "/images/terraform/logo.png",
   "status": "active",
   "link": "terraform-commands",
   "price": "free"

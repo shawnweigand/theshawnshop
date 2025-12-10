@@ -1,0 +1,13 @@
+{
+  "id": "kubectl-commands",
+  "title": "Kubectl Commands Guide",
+  "description": "Master the most useful kubectl commands with visual explanations and examples.",
+  "difficulty": "Beginner",
+  "duration": "15 min",
+  "tags": ["kubectl", "guide", "kubernetes", "k8s"],
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/640px-Kubernetes_logo_without_workmark.svg.png",
+  "status": "active",
+  "link": "kubectl-commands",
+  "price": "free"
+}
+
