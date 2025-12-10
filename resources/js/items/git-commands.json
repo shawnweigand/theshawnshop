@@ -1,0 +1,13 @@
+{
+  "id": "git-commands",
+  "title": "Git Commands Guide",
+  "description": "Master the most useful Git commands with visual explanations and examples.",
+  "difficulty": "Beginner",
+  "duration": "10 min",
+  "tags": ["git", "guide", "version-control"],
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Git_format.png/640px-Git_format.png",
+  "status": "active",
+  "link": "git-commands",
+  "price": "free"
+}
+

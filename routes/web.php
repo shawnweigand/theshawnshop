@@ -153,6 +153,14 @@ Route::middleware([
         return Inertia::render('items/devops-deploy');
     })->name('devops-deploy');
 
+    Route::get('git-commands', function () {
+        return Inertia::render('items/git-commands');
+    })->name('git-commands');
+
+    Route::get('terraform-commands', function () {
+        return Inertia::render('items/terraform-commands');
+    })->name('terraform-commands');
+
     Route::get('products', function () {
         return Inertia::render('products');
     })->name('products');
