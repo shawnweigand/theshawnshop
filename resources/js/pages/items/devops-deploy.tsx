@@ -94,10 +94,10 @@ export default function DevOpsDeployPage() {
                 This comprehensive 4-week program is designed to take you from beginner to job-ready in DevOps.
                 You'll learn the essential skills needed to deploy, manage, and scale modern applications in production environments.
               </p>
-              <p className="text-muted-foreground">
+              {/* <p className="text-muted-foreground">
                 Whether you're looking to transition into DevOps or level up your current skills, this program provides
                 hands-on experience, mentorship, and career support to help you succeed.
-              </p>
+              </p> */}
             </div>
 
             <div className="bg-card border rounded-lg p-6 shadow-lg">
