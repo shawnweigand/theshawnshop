@@ -1,0 +1,13 @@
+{
+  "id": "bash-commands",
+  "title": "Bash Commands Guide",
+  "description": "Master the most useful Bash commands with visual explanations and examples.",
+  "difficulty": "Beginner",
+  "duration": "15 min",
+  "tags": ["bash", "guide", "shell", "linux"],
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bash_Logo_Colored.svg/640px-Bash_Logo_Colored.svg.png",
+  "status": "active",
+  "link": "bash-commands",
+  "price": "free"
+}
+

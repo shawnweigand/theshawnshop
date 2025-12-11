@@ -1,0 +1,13 @@
+{
+  "id": "terraform-commands",
+  "title": "Terraform Commands Guide",
+  "description": "Master the most useful Terraform commands with visual explanations and examples.",
+  "difficulty": "Beginner",
+  "duration": "10 min",
+  "tags": ["terraform", "guide", "iac", "infrastructure"],
+  "image": "/images/terraform/logo.png",
+  "status": "active",
+  "link": "terraform-commands",
+  "price": "free"
+}
+

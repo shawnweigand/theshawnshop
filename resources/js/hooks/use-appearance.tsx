@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 export type Appearance = 'light' | 'dark' | 'system';
 
+// Commented out - enforcing light mode only
+/*
 const prefersDark = () => {
     if (typeof window === 'undefined') {
         return false;
@@ -37,37 +39,52 @@ const handleSystemThemeChange = () => {
     const currentAppearance = localStorage.getItem('appearance') as Appearance;
     applyTheme(currentAppearance || 'system');
 };
+*/
+
+// Enforce light mode always
+const applyTheme = () => {
+    if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('dark');
+    }
+};
 
 export function initializeTheme() {
+    // Always apply light mode
+    applyTheme();
+
+    // Commented out - enforcing light mode only
+    /*
     const savedAppearance = (localStorage.getItem('appearance') as Appearance) || 'system';
 
     applyTheme(savedAppearance);
 
     // Add the event listener for system theme changes...
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
+    */
 }
 
 export function useAppearance() {
-    const [appearance, setAppearance] = useState<Appearance>('system');
+    // Always return 'light' mode
+    const [appearance] = useState<Appearance>('light');
 
+    // No-op function - appearance cannot be changed
     const updateAppearance = useCallback((mode: Appearance) => {
-        setAppearance(mode);
-
-        // Store in localStorage for client-side persistence...
-        localStorage.setItem('appearance', mode);
-
-        // Store in cookie for SSR...
-        setCookie('appearance', mode);
-
-        applyTheme(mode);
+        // Ignore updates - always enforce light mode
+        applyTheme();
     }, []);
 
     useEffect(() => {
+        // Always apply light mode on mount
+        applyTheme();
+
+        // Commented out - enforcing light mode only
+        /*
         const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
         updateAppearance(savedAppearance || 'system');
 
         return () => mediaQuery()?.removeEventListener('change', handleSystemThemeChange);
-    }, [updateAppearance]);
+        */
+    }, []);
 
     return { appearance, updateAppearance } as const;
 }

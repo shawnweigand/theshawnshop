@@ -29,6 +29,7 @@ export default function Dashboard() {
     const [items, setItems] = useState<ProjectItem[]>([]);
     const [certifications, setCertifications] = useState<ProjectItem[]>([]);
     const [guides, setGuides] = useState<ProjectItem[]>([]);
+    const [programs, setPrograms] = useState<ProjectItem[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -46,24 +47,32 @@ export default function Dashboard() {
                 // Filter to only show active items
                 const activeItems = loadedItems.filter((item) => item.status === 'active');
 
-                // Separate certifications, guides, and projects
+                // Separate programs, certifications, guides, and projects
+                const programItems = activeItems.filter((item) =>
+                    item.tags && item.tags.some(tag => tag.toLowerCase() === 'program')
+                );
                 const certificationItems = activeItems.filter((item) =>
-                    item.tags && item.tags.some(tag => tag.toLowerCase() === 'certification')
+                    item.tags && item.tags.some(tag => tag.toLowerCase() === 'certification') &&
+                    !item.tags.some(tag => tag.toLowerCase() === 'program')
                 );
                 const guideItems = activeItems.filter((item) =>
                     item.tags && item.tags.some(tag => tag.toLowerCase() === 'guide') &&
-                    !item.tags.some(tag => tag.toLowerCase() === 'certification')
+                    !item.tags.some(tag => tag.toLowerCase() === 'certification') &&
+                    !item.tags.some(tag => tag.toLowerCase() === 'program')
                 );
                 const projectItems = activeItems.filter((item) =>
                     (!item.tags || !item.tags.some(tag => tag.toLowerCase() === 'certification')) &&
-                    (!item.tags || !item.tags.some(tag => tag.toLowerCase() === 'guide'))
+                    (!item.tags || !item.tags.some(tag => tag.toLowerCase() === 'guide')) &&
+                    (!item.tags || !item.tags.some(tag => tag.toLowerCase() === 'program'))
                 );
 
                 // Sort by title alphabetically
+                programItems.sort((a, b) => a.title.localeCompare(b.title));
                 certificationItems.sort((a, b) => a.title.localeCompare(b.title));
                 guideItems.sort((a, b) => a.title.localeCompare(b.title));
                 projectItems.sort((a, b) => a.title.localeCompare(b.title));
 
+                setPrograms(programItems);
                 setCertifications(certificationItems);
                 setGuides(guideItems);
                 setItems(projectItems);
@@ -106,6 +115,11 @@ export default function Dashboard() {
                                 FREE
                             </Badge>
                         )}
+                        {item.price === 'waitlist' && (
+                            <Badge className="font-semibold px-2.5 py-1 bg-orange-500/20 text-orange-900 dark:text-orange-400 hover:bg-orange-500/20 hover:text-orange-900 dark:hover:text-orange-400 border-orange-500/30">
+                                JOIN WAITLIST
+                            </Badge>
+                        )}
                     </div>
                     <Link href={route(item.link)} className="flex-1 flex flex-col">
                         <Card className="hover:shadow-md transition-shadow overflow-hidden flex-1 flex flex-col cursor-pointer h-full">
@@ -136,6 +150,16 @@ export default function Dashboard() {
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
                 <div className="space-y-8">
+                    {programs.length > 0 && (
+                        <div className="space-y-4">
+                            <div>
+                                <h1 className="text-2xl font-bold tracking-tight">Programs</h1>
+                                <p className="text-muted-foreground">Comprehensive learning programs and courses</p>
+                            </div>
+                            {renderCardGrid(programs)}
+                        </div>
+                    )}
+
                     <div className="space-y-4">
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight">Projects</h1>

@@ -1,12 +1,12 @@
 {
-  "id": "microservices-docker",
-  "title": "Microservices with Docker",
-  "description": "Learn the basics of containers and microservices while building this simple to-do list application.",
+  "id": "containers-docker",
+  "title": "Containers with Docker",
+  "description": "Learn the basics of containers while building this simple to-do list application.",
   "difficulty": "Beginner",
   "duration": "30 min",
-  "tags": ["docker", "microservices", "project"],
-  "image": "/images/microservices-docker/diagram.png",
+  "tags": ["docker", "containers", "project"],
+  "image": "/images/containers-docker/diagram.png",
   "status": "active",
-  "link": "microservices-docker",
+  "link": "containers-docker",
   "price": "free"
 }
