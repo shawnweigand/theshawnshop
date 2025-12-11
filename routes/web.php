@@ -165,6 +165,10 @@ Route::middleware([
         return Inertia::render('items/kubectl-commands');
     })->name('kubectl-commands');
 
+    Route::get('bash-commands', function () {
+        return Inertia::render('items/bash-commands');
+    })->name('bash-commands');
+
     Route::get('products', function () {
         return Inertia::render('products');
     })->name('products');
